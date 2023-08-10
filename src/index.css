@@ -89,19 +89,6 @@ body {
   color: #fff;
 }
 
-.exchange-container a {
-  width: 80%;
-  margin: 20px auto;
-  padding: 12px;
-  background-color: #ff4b12;
-  text-decoration: none;
-  border-radius: 50px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-weight: 600;
-}
-
 .exchange-container .exchange-box {
   display: flex;
   justify-content: space-around;

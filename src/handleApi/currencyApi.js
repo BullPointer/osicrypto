@@ -33,7 +33,7 @@ async function getRange(apiLink, from, to) {
 }
 async function getEstimatedValue(apiLink, from, to, amount) {
   const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
-  // https://api.simpleswap.io/get_estimated?api_key=abcdef12-3456-7890-abcd-ef1234567890&fixed=true&currency_from=btc&currency_to=eth&amount=1
+
   try {
     const response = await axios.get(
       `${apiLink}?api_key=${api_key}&fixed=true&currency_from=${from}&currency_to=${to}&amount=${amount}`
@@ -43,7 +43,34 @@ async function getEstimatedValue(apiLink, from, to, amount) {
     return error;
   }
 }
+async function createExchange(apiLink, from, to, amount, address_to) {
+  const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
+  // https://api.simpleswap.io/create_exchange?api_key=f1111d26-33eb-4314-8374-a40e9d2887ee/
 
-export { getApi, getCurrency, getRange, getEstimatedValue };
+  const requestObj = {
+    fixed: true,
+    currency_from: from,
+    currency_to: to,
+    amount: amount,
+    address_to: address_to,
+    // user_refund_address: "",
+    // extra_id_to: "",
+    // user_refund_extra_id: "",
+  };
 
-// https://api.simpleswap.io/get_all_currencies?api_key=f1111d26-33eb-4314-8374-a40e9d2887ee
+  const config = {
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await axios.post(
+    `${apiLink}?api_key=${api_key}`,
+    JSON.stringify(requestObj),
+    config
+  );
+  return response;
+}
+
+export { getApi, getCurrency, getRange, getEstimatedValue, createExchange };

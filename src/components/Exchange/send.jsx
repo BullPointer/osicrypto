@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
-import { useExchangeContext } from "../../context/HomeExchangeContext";
+import { useHomeExchangeContext } from "../../context/HomeExchangeContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import CryptoList from "./cryptList";
 
@@ -13,7 +13,7 @@ const Send = () => {
     handleAmount,
     handleFocus,
     selectCoin
-  } = useExchangeContext();
+  } = useHomeExchangeContext();
 
   return (
     <>

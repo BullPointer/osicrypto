@@ -10,6 +10,7 @@ import HelpCenter from "./pages/HelpCenter";
 import Support from "./pages/Support";
 import NotFound from "./pages/NoFound";
 import { useEffect } from "react";
+import AddExchangeDetails from "./pages/AddExchangeDetails";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/osicrypto/how-it-works" element={<HowItWorks />} />
         <Route path="/osicrypto/help" element={<HelpCenter />} />
         <Route path="/osicrypto/support" element={<Support />} />
+        <Route path="/osicrypto/exchange" element={<AddExchangeDetails />} />
       </Routes>
       <Footer />
     </>

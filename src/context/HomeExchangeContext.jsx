@@ -162,6 +162,6 @@ export const HomeExchangeContext = ({ children }) => {
   );
 };
 
-export const useExchangeContext = () => {
+export const useHomeExchangeContext = () => {
   return useContext(HomeContext);
 };

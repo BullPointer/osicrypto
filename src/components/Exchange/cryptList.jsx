@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import "../../Styling/exchange.css";
 import { Icon } from "@iconify/react";
-import { useExchangeContext } from "../../context/HomeExchangeContext";
+import { useHomeExchangeContext } from "../../context/HomeExchangeContext";
 
 const CryptoList = ({ type }) => {
   const {
@@ -12,7 +12,7 @@ const CryptoList = ({ type }) => {
     filteredAllCoins,
     filteredPopularCoin,
     searchValue,
-  } = useExchangeContext();
+  } = useHomeExchangeContext();
   const commonStyle = "flex flex-row justify-center items-center";
 
   return (

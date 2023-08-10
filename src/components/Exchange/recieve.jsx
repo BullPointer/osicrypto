@@ -2,11 +2,11 @@
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 import ErrorBoundary from "../../ErrorBoundary";
-import { useExchangeContext } from "../../context/HomeExchangeContext";
+import { useHomeExchangeContext } from "../../context/HomeExchangeContext";
 import CryptoList from "./cryptList";
 
 const Recieve = () => {
-  const { showList, receive, selectCoin } = useExchangeContext();
+  const { showList, receive, selectCoin } = useHomeExchangeContext();
   const loading = (
     <Icon
       style={{ padding: "0", fontSize: "30px" }}
