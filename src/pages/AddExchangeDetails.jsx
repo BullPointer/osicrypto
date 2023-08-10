@@ -18,13 +18,15 @@ const AddExchangeDetails = () => {
 
   const handleExchange = async () => {
     console.log(from, to, amount);
+    const preAddressRegex = /^[0-9a-zA-Z]{25,}$/;
+    !preAddressRegex.test(receipient)
+      ? setAddrError(true)
+      : setAddrError(false);
 
     try {
       const { data } = await createExchange(link, from, to, amount, receipient);
-      const btcAddressRegex = new RegExp(
-        data.currencies[to].validation_address
-      );
-      if (btcAddressRegex.test(receipient)) {
+      const addressRegex = new RegExp(data.currencies[to].validation_address);
+      if (addressRegex.test(receipient)) {
         setAddrError(false);
         console.log("success ", data);
       } else {
