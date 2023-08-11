@@ -11,6 +11,8 @@ import Support from "./pages/Support";
 import NotFound from "./pages/NoFound";
 import { useEffect } from "react";
 import AddExchangeDetails from "./pages/AddExchangeDetails";
+import MakeExchange from "./components/MakeExchange";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -21,7 +23,7 @@ const App = () => {
     window.addEventListener("load", handleScrollTo);
     return () => window.removeEventListener("load", handleScrollTo);
   }, []);
-  
+
   return (
     <>
       <Navbar />
@@ -35,6 +37,15 @@ const App = () => {
         <Route path="/osicrypto/help" element={<HelpCenter />} />
         <Route path="/osicrypto/support" element={<Support />} />
         <Route path="/osicrypto/exchange" element={<AddExchangeDetails />} />
+
+        <Route
+          path="/osicrypto/exchange/x"
+          element={
+            <ProtectedRoutes>
+              <MakeExchange />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
       <Footer />
     </>

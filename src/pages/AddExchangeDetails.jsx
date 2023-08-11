@@ -3,41 +3,17 @@ import { Icon } from "@iconify/react";
 import Transaction from "../components/Transaction";
 import { useExchangeContext } from "../context/ExchangeContext";
 import { useHomeExchangeContext } from "../context/HomeExchangeContext";
-import { useSearchParams } from "react-router-dom";
 import { createExchange } from "../handleApi/currencyApi";
 import { useEffect, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 const AddExchangeDetails = () => {
+  const navigate = useNavigate();
   const [receipient, setReceipient] = useState("");
   const [addrError, setAddrError] = useState(false);
-  const [params] = useSearchParams();
-  const from = params.get("from");
-  const to = params.get("to");
-  const amount = params.get("amount");
+  const [exchangeError, setExchangeError] = useState(null);
   const link = "https://api.simpleswap.io/create_exchange";
 
-  const handleExchange = async () => {
-    console.log(from, to, amount);
-    const preAddressRegex = /^[0-9a-zA-Z]{25,}$/;
-    !preAddressRegex.test(receipient)
-      ? setAddrError(true)
-      : setAddrError(false);
-
-    try {
-      const { data } = await createExchange(link, from, to, amount, receipient);
-      const addressRegex = new RegExp(data.currencies[to].validation_address);
-      if (addressRegex.test(receipient)) {
-        setAddrError(false);
-        console.log("success ", data);
-      } else {
-        setAddrError(true);
-
-        console.log("It's not correct");
-      }
-    } catch (error) {
-      console.log("error ", error);
-    }
-  };
   const {
     send,
     setSend,
@@ -53,7 +29,50 @@ const AddExchangeDetails = () => {
     mostPopularCoin,
     handleSelectedCurrency,
     handleSearch,
+    setCreateXData,
   } = useExchangeContext();
+  const handleExchange = async () => {
+    const preAddressRegex = /^[0-9a-zA-Z]{25,}$/;
+    !preAddressRegex.test(receipient)
+      ? setAddrError(true)
+      : setAddrError(false);
+
+    try {
+      const { data } = await createExchange(
+        link,
+        send.symbol.toLowerCase(),
+        receive.symbol.toLowerCase(),
+        send.amount,
+        receipient
+      );
+
+      const addressRegex = new RegExp(
+        data.currencies[receive.symbol.toLowerCase()].validation_address
+      );
+      if (addressRegex.test(receipient)) {
+        setAddrError(false);
+        setCreateXData(data);
+        navigate({
+          pathname: "/osicrypto/exchange/x",
+          search: createSearchParams({ id: data.id }).toString(),
+        });
+      } else {
+        setAddrError(true);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 500) {
+        setExchangeError("Unsupported pair");
+      } else if (error.response && error.response.status === 422) {
+        setExchangeError(null);
+        console.log("Non of your business");
+      } else {
+        setExchangeError(
+          error.response?.data.description || "Unsupported pair"
+        );
+      }
+      console.log("error ", error.response.status, error.response);
+    }
+  };
 
   const { send: homeSend, receive: homeReceive } = useHomeExchangeContext();
 
@@ -127,6 +146,9 @@ const AddExchangeDetails = () => {
             handleSearch={handleSearch}
           />
           <div className="w-full mb-2 mt-5">
+            {exchangeError && (
+              <div className="text-sm text-red-500">{exchangeError}</div>
+            )}
             <div className="my-2">
               <div className="text-[#0c1235] text-[14px] sm:text-[17px] font-bold p-2">
                 Enter the wallet address
@@ -137,14 +159,14 @@ const AddExchangeDetails = () => {
               <input
                 placeholder="Receipient's address"
                 onChange={({ target }) => setReceipient(target.value)}
-                className="w-full outline-none pl-2 text-center text-black"
+                className="w-full outline-none pl-2 py-2 text-center text-black"
                 type="text"
                 name={"addressTo"}
                 value={receipient}
               />
               {addrError && (
                 <p className="text-red-500 text-sm">
-                  Invalid {to.toUpperCase()} address
+                  Invalid {receive.symbol} address
                 </p>
               )}
             </div>

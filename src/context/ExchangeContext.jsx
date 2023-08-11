@@ -15,6 +15,7 @@ const link = "https://api.simpleswap.io/";
 const ExchangeContext = createContext();
 
 export const ExchangeProvider = ({ children }) => {
+  const [createXData, setCreateXData] = useState(null);
   const [currencies, setCurrencies] = useState([]);
   const [allCoins, setAllCoins] = useState([]);
   const [mostPopularCoin, setMostPopularCoin] = useState([]);
@@ -133,6 +134,8 @@ export const ExchangeProvider = ({ children }) => {
         handleAmount,
         handleFocus,
         error,
+        setCreateXData,
+        createXData,
       }}
     >
       {children}

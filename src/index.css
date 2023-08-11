@@ -16,8 +16,14 @@ body {
   overflow-x: hidden;
 }
 
+.word-wrap {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
 .gradient-blue-bg {
-  background: rgb(3, 3, 25);
+  background: rgb(6, 6, 30);
   background: linear-gradient(
     90deg,
     rgba(3, 3, 25, 0.9556197478991597) 0%,
