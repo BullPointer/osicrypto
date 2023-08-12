@@ -4,9 +4,11 @@ import Input from "../components/utils/Input";
 import { useState } from "react";
 import Joi from "joi";
 import { errorSubmit } from "../components/utils/errorSubmit";
+import { loginApi } from "../handleApi/accountApi";
 
 const Signin = () => {
   const [user, setUser] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,10 +16,10 @@ const Signin = () => {
 
   const schema = Joi.object({
     password: Joi.string()
-      .min(5)
+      .min(4)
       .max(15)
       .label("Password Field")
-      .regex(/^(?=.*[A-Z])(?=.*\d).{4,15}$/)
+      // .regex(/^(?=.*[A-Z])(?=.*\d).{4,15}$/)
       .messages({
         "string.pattern.base":
           '"Password" Field must have number, Uppercase letter, and greater than 4',
@@ -33,11 +35,27 @@ const Signin = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const error = errorSubmit(schema, user);
     if (!error) {
-      navigate(redirectPath, { replace: true });
+      try {
+        const response = await loginApi(user);
+        const expirationTime = new Date();
+        expirationTime.setHours(expirationTime.getHours() + 4);
+
+        const dataToStore = {
+          exp: expirationTime.getTime(),
+          data: response.data.token,
+        };
+
+        sessionStorage.setItem("token", JSON.stringify(dataToStore));
+        setIsLoading(false);
+        navigate(redirectPath, { replace: true });
+      } catch (error) {
+        console.log(error);
+      }
     }
     setError(error);
   };
@@ -84,7 +102,11 @@ const Signin = () => {
           <div className="w-[80%] my-3 mx-auto flex flex-col sm:flex-row justify-between items-center">
             <div className="flex flex-row justify-between sm:justify-center items-center gap-5 sm:gap-2">
               <button className="bg-[#122aff] opacity-80 text-white py-1 px-4 rounded-lg font-bold text-[12px] cursor-pointer">
-                LOGIN
+                {!isLoading ? (
+                  " LOGIN"
+                ) : (
+                  <div className="w-3 h-3 border-b-2 border-b-white animate-spin rounded-full" />
+                )}
               </button>
               <Link to={"/osicrypto/create-account"}>
                 <div className="bg-[#ff4b12] opacity-80 text-white py-1 px-4 rounded-lg font-bold text-[12px]">

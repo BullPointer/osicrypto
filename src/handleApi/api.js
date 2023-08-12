@@ -16,6 +16,6 @@ async function getApi(apiLink) {
 }
 
 export {
-    getApi
+    getApi,
 }
 
