@@ -43,15 +43,15 @@ const Signin = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-row justify-center items-center">
-      <div className="w-[40%] h-screen">
-        <div className="flex flex-col justify-center items-start p-5 w-[80%] mx-auto">
+    <div className="relative w-full min-h-screen flex flex-row justify-center items-center">
+      <div className="absolute top-0 left-0 right-0 lg:sticky w-full lg:w-[40%] h-screen">
+        <div className="flex flex-col justify-center items-start px-3 py-5 lg:px-5 w-[100%] mx-auto">
           <Link to={"/osicrypto"}>
             <div className="bg-[#122aff] py-1 px-3 rounded-md text-[12px] font-bold text-white">
               HOME
             </div>
           </Link>
-          <div className="text-3xl py-5 font-[700] text-white">
+          <div className="text-[18px] lg:text-3xl py-5 font-[700] text-white">
             Welcome Back to OSICRYPTO
           </div>
         </div>
@@ -81,8 +81,8 @@ const Signin = () => {
               error={error}
             />
           </div>
-          <div className="w-[80%] my-3 mx-auto flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-center items-center gap-2">
+          <div className="w-[80%] my-3 mx-auto flex flex-col sm:flex-row justify-between items-center">
+            <div className="flex flex-row justify-between sm:justify-center items-center gap-5 sm:gap-2">
               <button className="bg-[#122aff] opacity-80 text-white py-1 px-4 rounded-lg font-bold text-[12px] cursor-pointer">
                 LOGIN
               </button>
@@ -96,9 +96,14 @@ const Signin = () => {
               Forgot Your Password?
             </div>
           </div>
+          <div className="w-[80%] mx-auto text-white text-[10px] pb-4">
+            By continuing, I agree with your
+            <span className="text-red-400">Terms and Conditions</span> and{" "}
+            <span className="text-red-400">Privacy Policies</span>
+          </div>
         </form>
       </div>
-      <div className="w-[60%] h-screen">
+      <div className="w-full lg:w-[60%] h-screen">
         <img
           className="w-[100%] h-[100%] object-cover"
           src={Img}

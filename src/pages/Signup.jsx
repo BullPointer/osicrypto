@@ -59,21 +59,21 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-full h-auto flex flex-row justify-center items-center">
-      <div className="w-[40%] min-h-screen">
-        <div className="flex flex-col justify-center items-start p-5 w-[80%] mx-auto">
+    <div className="relative w-full h-auto flex flex-row justify-center items-center">
+      <div className="absolute top-0 left-0 right-0 lg:sticky w-full lg:w-[40%] min-h-screen">
+        <div className="flex flex-col justify-center items-start px-3 py-5 lg:px-5 w-[100%] lg:w-[80%] mx-auto">
           <Link to={"/osicrypto"}>
-            <div className="bg-[#122aff] py-1 px-3 rounded-md text-[12px] font-bold text-white">
+            <div className="bg-[#122aff]  px-3 rounded-md text-[12px] font-bold text-white">
               HOME
             </div>
           </Link>
-          <div className="text-3xl py-3 font-[700] text-white">
+          <div className="text-[18px] lg:text-3xl py-2 font-[700] text-white">
             Sign Up to OSICRYPTO
           </div>
         </div>
         <div className="flex flex-row justify-center items-center gap-2 w-[80%] mx-auto pb-2">
           <img
-            className="bg-white p-1 text-white rounded-md cursor-pointer"
+            className="bg-white text-white rounded-md cursor-pointer"
             width="35"
             height="35"
             src="https://img.icons8.com/color/48/google-logo.png"
@@ -81,7 +81,7 @@ const Signup = () => {
           />
         </div>
         <form onSubmit={handleSubmit} action="" method="post">
-          <div className="flex flex-col items-start justify-center gap-5">
+          <div className="flex flex-col items-start justify-center gap-3">
             <Input
               handleChange={handleChange}
               label={"Full Name"}
@@ -105,8 +105,8 @@ const Signup = () => {
               error={error}
             />
           </div>
-          <div className="w-[80%] py-5 mx-auto flex flex-row justify-between items-center">
-            <div className="flex flex-row justify-center items-center gap-2">
+          <div className="w-[80%] my-3 mx-auto flex flex-col sm:flex-row justify-between items-center">
+            <div className="flex flex-row justify-between sm:justify-center items-center gap-5 sm:gap-2">
               <button className="bg-[#122aff] opacity-80 text-white py-1 px-4 rounded-lg font-bold text-[12px]">
                 SIGN UP
               </button>
@@ -120,9 +120,14 @@ const Signup = () => {
               Forgot Your Password?
             </div>
           </div>
+          <div className="w-[80%] mx-auto text-white text-[10px] pb-4">
+            By continuing, I agree with your
+            <span className="text-red-400">Terms and Conditions</span> and{" "}
+            <span className="text-red-400">Privacy Policies</span>
+          </div>
         </form>
       </div>
-      <div className="w-[60%] min-h-screen bg-blue-500">
+      <div className="w-full lg:w-[60%] min-h-screen bg-blue-500">
         <img
           className="w-[100%] min-h-screen object-cover"
           src={Img}

@@ -2,13 +2,13 @@
 
 const Input = ({ label, name, type, handleChange, error }) => {
   return (
-    <div className="w-[80%] m-auto flex flex-col justify-center items-start gap-2">
+    <div className="w-[90%] md:w-[80%] m-auto flex flex-col justify-center items-start gap-2">
       <label className="text-[16px] text-white" htmlFor="">
         {label}
       </label>
       <input
         onChange={handleChange}
-        className="w-full p-2 outline-none rounded-md bg-yellow-300 opacity-90"
+        className="w-full p-1 sm:p-2 outline-none rounded-md bg-yellow-300 opacity-90"
         type={type}
         name={name}
         id=""

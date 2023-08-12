@@ -8,23 +8,23 @@ const Country = ({ user, setUser }) => {
   const [country, setCountry] = useState("");
 
   useEffect(() => {
-    setCountry(countryList().getData())
+    setCountry(countryList().getData());
   }, []);
 
   const handleCountry = (ctry) => {
-    setUser({...user, country: ctry});
+    setUser({ ...user, country: ctry });
     setOpen(false);
   };
   return (
-    <div className="w-[80%] m-auto flex flex-col justify-center items-start gap-2">
+    <div className="w-[90%] md:w-[80%] m-auto flex flex-col justify-center items-start gap-2">
       <label className="text-[16px] text-white" htmlFor="">
         {"Country"}
       </label>
       <div className="relative w-full bg-yellow-300 rounded-md">
-        <div className="w-full p-2 flex flex-row justify-between items-center">
+        <div className="w-full p-1 sm:p-2 flex flex-row justify-between items-center">
           <div className="text-black font-semibold">{user.country}</div>
           <div className="text-black" onClick={() => setOpen(true)}>
-        <Icon className="text-[15px]" icon="fe:arrow-up" />
+            <Icon className="text-[15px]" icon="fe:arrow-up" />
           </div>
         </div>
         {open && (
@@ -32,20 +32,18 @@ const Country = ({ user, setUser }) => {
             <div className="w-full p-3 flex flex-row justify-between items-center">
               <div className="w-full text-[14px]">Select Your Country</div>
               <div className="" onClick={() => setOpen(false)}>
-              <Icon className="text-[15px]" icon="fe:arrow-down" />
+                <Icon className="text-[15px]" icon="fe:arrow-down" />
               </div>
             </div>
-            {country?.map(
-              (country, index) => (
-                <div
-                  onClick={() => handleCountry(country.label)}
-                  key={index}
-                  className="w-full p-3 text-[14px] font-bold opacity-90 cursor-pointer hover:bg-[#ff4b12] hover:text-white"
-                >
-                  {country.label}
-                </div>
-              )
-            )}
+            {country?.map((country, index) => (
+              <div
+                onClick={() => handleCountry(country.label)}
+                key={index}
+                className="w-full p-3 text-[14px] font-bold opacity-90 cursor-pointer hover:bg-[#ff4b12] hover:text-white"
+              >
+                {country.label}
+              </div>
+            ))}
           </div>
         )}
       </div>
