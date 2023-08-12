@@ -2,11 +2,14 @@
 import BlogBody from "../components/BlogBody";
 import BlogHeader from "../components/BlogHeader";
 import { useHomeContext } from "../context/HomeContext";
+import Footer from "../footer/footer";
+import Navbar from "../navbar/Navbar";
 
 const Blog = () => {
   const { textColor } = useHomeContext();
   return (
     <>
+      <Navbar />
       <BlogHeader />
       <div className="pt-5 flex justify-center items-center">
         <div
@@ -17,6 +20,7 @@ const Blog = () => {
         </div>
       </div>
       <BlogBody />
+      <Footer />
     </>
   );
 };

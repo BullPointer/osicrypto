@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
-import { faqData } from "./database/faq";
-import Faqtext from "./faqtext";
+import { faqData } from "../components/database/faq";
+import Faqtext from "../components/faqtext";
+import Footer from "../footer/footer";
+import Navbar from "../navbar/Navbar";
 
 function FaQ() {
   // start of responsive faq drop down
@@ -29,6 +31,7 @@ function FaQ() {
   // end of responsive faq drop down
   return (
     <>
+    <Navbar />
       {/* <!-- start of FAQ section --> */}
       <div className="accordion" id="FAQ">
         <p className={`p text-${textColor}`}>Do you have any questions?</p>
@@ -85,6 +88,7 @@ function FaQ() {
       </div>
 
       {/* <!-- end of FAQ section --> */}
+      <Footer />
     </>
   );
 }

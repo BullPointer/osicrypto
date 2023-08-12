@@ -1,9 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./navbar/Navbar";
-import Footer from "./footer/footer";
 import Home from "./pages/Home";
-import FaQ from "./components/faq";
+import FaQ from "./pages/faq";
 import Blog from "./pages/Blog";
 import HowItWorks from "./pages/HowItWorks";
 import HelpCenter from "./pages/HelpCenter";
@@ -13,6 +11,8 @@ import { useEffect } from "react";
 import AddExchangeDetails from "./pages/AddExchangeDetails";
 import MakeExchange from "./components/MakeExchange";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -26,12 +26,13 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/osicrypto" element={<Home />} />
         <Route path="/osicrypto/faq" element={<FaQ />} />
+        <Route path="/osicrypto/sign-in" element={<Signin />} />
+        <Route path="/osicrypto/create-account" element={<Signup />} />
         <Route path="/osicrypto/blog" element={<Blog />} />
         <Route path="/osicrypto/how-it-works" element={<HowItWorks />} />
         <Route path="/osicrypto/help" element={<HelpCenter />} />
@@ -47,7 +48,6 @@ const App = () => {
           }
         />
       </Routes>
-      <Footer />
     </>
   );
 };
