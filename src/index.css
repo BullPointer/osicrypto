@@ -295,7 +295,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   padding: 25px 20px;
-  margin-top: 75px;
+  /* margin-top: 75px; */
   color: #999;
   background-color: #000;
 }

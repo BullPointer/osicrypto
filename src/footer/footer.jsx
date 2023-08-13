@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -30,16 +31,18 @@ function Footer() {
           <h3 className="mb-2">Company</h3>
           <ul>
             <li>
-              <a href="#">Terms & Conditions</a>
+              <Link to="/osicrypto/terms-and-conditions">
+                Terms & Conditions
+              </Link>
             </li>
             <li>
-              <a href="#">Privacy policy</a>
+              <Link to="/osicrypto/privacy-policy">Privacy policy</Link>
             </li>
           </ul>
         </div>
 
         <div className="social-media">
-          <h3  className="mb-2">Social Media</h3>
+          <h3 className="mb-2">Social Media</h3>
           <p>
             If you to stay up-to-date with the latest news. updates, and
             promotions from our platform, be sure to follow us on social media

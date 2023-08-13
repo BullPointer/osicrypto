@@ -13,6 +13,8 @@ import MakeExchange from "./components/MakeExchange";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsAndConditions from "./components/TermsAndConditions";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -29,15 +31,17 @@ const App = () => {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path="/osicrypto" element={<Home />} />
-        <Route path="/osicrypto/faq" element={<FaQ />} />
-        <Route path="/osicrypto/sign-in" element={<Signin />} />
-        <Route path="/osicrypto/create-account" element={<Signup />} />
-        <Route path="/osicrypto/blog" element={<Blog />} />
-        <Route path="/osicrypto/how-it-works" element={<HowItWorks />} />
-        <Route path="/osicrypto/help" element={<HelpCenter />} />
-        <Route path="/osicrypto/support" element={<Support />} />
-        <Route path="/osicrypto/exchange" element={<AddExchangeDetails />} />
+        <Route path="osicrypto" element={<Home />} />
+        <Route path="/osicrypto/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="osicrypto/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="osicrypto/faq" element={<FaQ />} />
+        <Route path="osicrypto/sign-in" element={<Signin />} />
+        <Route path="osicrypto/create-account" element={<Signup />} />
+        <Route path="osicrypto/blog" element={<Blog />} />
+        <Route path="osicrypto/how-it-works" element={<HowItWorks />} />
+        <Route path="osicrypto/help" element={<HelpCenter />} />
+        <Route path="osicrypto/support" element={<Support />} />
+        <Route path="osicrypto/exchange" element={<AddExchangeDetails />} />
 
         <Route
           path="/osicrypto/exchange/x"
