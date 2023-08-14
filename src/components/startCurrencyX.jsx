@@ -28,10 +28,10 @@ const ExchangeCurrency = () => {
   };
 
   return (
-    <>
+    <div className="pb-16">
       {/* <!-- start of currency exchange --> */}
       {/* <div className="bg-[#000] max-w-[800px] rounded-[25px] text-center my-[20px] mx-auto p-[10px] text-[#fff]"> */}
-      <div className="exchange-container">
+      <div className="exchange-container ">
         <h2>Select currency</h2>
         <div className="exchange-box">
           <ErrorBoundary fallback="">
@@ -51,7 +51,7 @@ const ExchangeCurrency = () => {
       </div>
 
       {/* <!-- end of currency exchange --> */}
-    </>
+    </div>
   );
 };
 export default ExchangeCurrency;

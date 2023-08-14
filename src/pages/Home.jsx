@@ -1,3 +1,4 @@
+import Testimonials from "../components/Testimonials";
 import ExchangeCurrency from "../components/startCurrencyX";
 import StartTutorial from "../components/startTutorial";
 import Footer from "../footer/footer";
@@ -9,6 +10,7 @@ const Home = () => {
       <Navbar />
       <StartTutorial />
       <ExchangeCurrency />
+      <Testimonials />
       <Footer />
     </>
   );
