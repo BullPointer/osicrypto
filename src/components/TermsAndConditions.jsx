@@ -1,16 +1,42 @@
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/footer";
 import LegalSidebar from "../pages/LegalSidebar";
+import { useEffect, useRef, useState } from "react";
 
 const TermsAndConditions = () => {
+  const [isFixed, setIsFixed] = useState(false);
+  const leftScrollDivRef = useRef(null);
+  const rightScrollDivRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const leftScrollDiv = leftScrollDivRef.current;
+      const rightScrollDiv = rightScrollDivRef.current;
+      if (leftScrollDiv && rightScrollDiv && window.innerWidth >= 1024) {
+        const rightRect = leftScrollDiv.getBoundingClientRect();
+        if (rightRect.top < 0) {
+          setIsFixed(true);
+        }
+        if (rightRect.top > 0) {
+          setIsFixed(false);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
       <Navbar />
       <div
         className={`w-full min-h-screen flex flex-col lg:flex-row justify-center items-start`}
       >
-        <LegalSidebar />
-        <div className="flex flex-col justify-start items-center gap-2 w-full min-h-screen mb-2 text-white">
+        <LegalSidebar leftScrollDivRef={leftScrollDivRef} isFixed={isFixed} />
+        <div
+          ref={rightScrollDivRef}
+          className="flex flex-col justify-start items-center gap-2 w-full min-h-screen mb-2 text-white"
+        >
           <div className="w-full lg:w-[90%] mx-auto bg-black text-white lg:rounded-lg mt-10">
             <div className="text-center text-[24px] py-1">
               Terms and Conditions

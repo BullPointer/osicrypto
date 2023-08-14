@@ -1,11 +1,13 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { legalSidebarData } from "./LegalData";
 import { useEffect, useState } from "react";
 
-const LegalSidebar = () => {
+const LegalSidebar = ({ leftScrollDivRef, isFixed }) => {
   const navigate = useNavigate();
+
   const [screenSize, setScreenSize] = useState(screen.width);
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
@@ -25,10 +27,15 @@ const LegalSidebar = () => {
     return () => window.removeEventListener("resize", handleScreen);
   }, [screenSize]);
   return (
-    <div className="flex flex-col justify-start items-center w-full lg:w-[30pc] h-auto lg:min-h-screen bg-black ">
+    <div
+      ref={leftScrollDivRef}
+      className={`${
+        isFixed ? "sticky top-0 left-0" : "overflow-auto"
+      } flex flex-col justify-start items-center w-full lg:w-[30pc] h-auto lg:min-h-screen lg:pt-10 bg-black `}
+    >
       <div className="flex flex-col justify-center items-start w-full ">
         <div className="flex flex-row justify-between items-center text-[25px] font-[600] text-[#fff] px-5 py-3 w-full">
-          <div>Official Documents</div>{" "}
+          <div className="">Official Documents</div>{" "}
           {show ? (
             <Icon
               className="cursor-pointer flex lg:hidden"
