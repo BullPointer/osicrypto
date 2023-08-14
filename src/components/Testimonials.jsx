@@ -61,6 +61,9 @@ const Testimonials = () => {
 
   return (
     <div className="bg-[#070707] py-8 xl:py-0">
+      <div className="w-full text-[22px] xs:text-[28px] sm:text-[37px] font-[550] pt-5 text-white text-center">
+        Remarkable service
+      </div>
       <div className="flex flex-row xl:grid xl:grid-cols-3 overflow-hidden">
         {testimonialData?.map(({ img, text, name, about }, index) => (
           <div
@@ -69,7 +72,9 @@ const Testimonials = () => {
             className="min-w-[100%] transition-transform duration-500 bg-[#070707] flex flex-row justify-center  xl:first:justify-end xl:[&:nth-child(2)]:justify-center xl:justify-start items-center py-4 xl:py-10"
           >
             <div className="h-[100%] w-[80%]  md:w-[50%] xl:w-[80%] bg-black rounded-xl shadow-md shadow-black p-7 grid grid-col-1 justify-start items-start gap-2">
-              <div className="text-white">{text}</div>
+              <div className="text-white text-[13px] xs:text-[16px]">
+                {text}
+              </div>
               <div className="flex flex-row justify-center items-center gap-2 text-white">
                 <Icon
                   className="text-green-500 text-[18px]"
