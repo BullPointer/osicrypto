@@ -135,7 +135,7 @@ const Exchange = () => {
         onClick={handleExchange}
         className={`bg-[#ff4b12] cursor-pointer text-white ${commonStyle} p-2 m-2 rounded font-[500]`}
       >
-        {send.isLoading && receive.isLoading ? (
+        {send.isLoading || receive.isLoading ? (
           <div className="w-5 h-5 rounded-full border-b-2 animate-spin mx-auto" />
         ) : (
           "Exchange"

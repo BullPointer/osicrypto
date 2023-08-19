@@ -87,7 +87,7 @@ const ExchangeCurrency = () => {
           onClick={handleExchange}
           className="grid cursor-pointer w-[80%] rounded-[50px] mx-auto my-[20px] p-[12px] font-[600] bg-[#ff4b12] text-[#fff]"
         >
-          {send.isLoading && receive.isLoading ? (
+          {send.isLoading || receive.isLoading ? (
             <div className="w-5 h-5 rounded-full border-b-2 animate-spin mx-auto" />
           ) : (
             "Continue"
