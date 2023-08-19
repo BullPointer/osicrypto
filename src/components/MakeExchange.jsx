@@ -1,17 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Copied } from "./utils/Copied";
-import { useEffect, useState } from "react";
-import { useExchangeContext } from "../context/ExchangeContext";
+
 import { explorerAddress } from "../utils/explorerAddress";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/footer";
+import { getExchange } from "../handleApi/currencyApi";
+import { exchangeDummyData } from "./utils/exchangeDummyData";
 
 const MakeExchange = () => {
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const [createXData, setCreateXData] = useState(exchangeDummyData);
   const [copiedId, setCopiedId] = useState(false);
-  const { createXData } = useExchangeContext();
-  console.log("Here is the data ", createXData);
+
   const currencies = createXData?.currencies;
   const imageFrom = currencies[createXData?.currency_from].image;
   const imageTo = currencies[createXData?.currency_to].image;
@@ -25,13 +30,30 @@ const MakeExchange = () => {
       setCopiedId(false);
     }, 3000);
   }, [copiedId]);
+
+  useEffect(() => {
+    const link = "https://api.simpleswap.io/get_exchange";
+    const getExchangeData = async () => {
+      try {
+        const { data } = await getExchange(link, id);
+        setCreateXData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getExchangeData();
+    setTimeout(() => {
+      getExchangeData();
+    }, 3 * 60 * 1000);
+  }, []);
+
   const commonStyle =
     "text-[10px] md:text-[14px] py-1 px-3 text-[#faf9f9] rounded-lg font-[700] my-2 cursor-context-menu";
 
   return (
     <>
       <Navbar />
-      <div className="p-5 lg:p-0">
+      <div className="p-5 lg:p-0 mb-20">
         <div className="max-w-[800px] flex flex-col justify-center gap-5  mx-auto mt-8">
           <div className="text-2xl text-[#ff4b12] text-center">
             Make deposit to complete process
@@ -104,25 +126,55 @@ const MakeExchange = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-5 p-2">
-              <div className="flex flex-col justify-center items-center">
+              <div
+                className={`flex flex-col justify-center items-center ${
+                  createXData.status === "waiting"
+                    ? "opacity-100"
+                    : "opacity-20"
+                }`}
+              >
                 <Icon
-                  className="bg-[#7f7fbb] text-3xl rounded-full "
+                  className={`bg-[#7f7fbb] text-3xl rounded-full `}
                   icon="ic:round-pending"
                 />
                 <div className={`${commonStyle}`}>Awaiting deposit</div>
               </div>
-              <div className="flex flex-col justify-center items-center">
-                <div className="border-b-[#7f7fbb] w-5 h-5 rounded-full border-b-4 animate-spin" />
-                <div className={`${commonStyle}`}>Confirming</div>
+              <div
+                className={`flex flex-col justify-center items-center ${
+                  createXData.status === "confirming"
+                    ? "opacity-100"
+                    : "opacity-20"
+                }`}
+              >
+                {createXData.status === "confirming" ? (
+                  <div
+                    className={`border-b-[#7f7fbb] w-5 h-5 rounded-full border-b-4 animate-spin`}
+                  />
+                ) : (
+                  <div className="w-5 h-5 rounded-full border-4" />
+                )}
+                <div className={`${commonStyle} `}>Confirming</div>
               </div>
-              <div className="flex flex-col justify-center items-center">
+              <div
+                className={`flex flex-col justify-center items-center ${
+                  createXData.status === "exchanging"
+                    ? "opacity-100"
+                    : "opacity-20"
+                }`}
+              >
                 <Icon
                   className="bg-[#7f7fbb] text-3xl rounded-full "
                   icon="ri:exchange-fill"
                 />
                 <div className={`${commonStyle}`}>Exchanging</div>
               </div>
-              <div className="flex flex-col justify-center items-center">
+              <div
+                className={`flex flex-col justify-center items-center ${
+                  createXData.status === "sending"
+                    ? "opacity-100"
+                    : "opacity-20"
+                }`}
+              >
                 <Icon
                   className="bg-[#7f7fbb]  text-3xl rounded-full "
                   icon="teenyicons:send-solid"

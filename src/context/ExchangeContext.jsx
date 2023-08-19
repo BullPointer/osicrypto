@@ -9,31 +9,38 @@ import {
   popularCoinFiltered,
 } from "../components/utils/popularCoin";
 import { getApi, getEstimatedValue } from "../handleApi/currencyApi";
+import { allCoinForFiatToCrypto, allFiatFiltered, allFiatsForFiatToCrypto, popularCoinForFiatToCrypto, popularFiatFiltered, popularFiatForFiatToCrypto } from "../components/utils/popularFiat";
 
 const link = "https://api.simpleswap.io/";
 
 const ExchangeContext = createContext();
 
 export const ExchangeProvider = ({ children }) => {
-  const [createXData, setCreateXData] = useState(null);
   const [currencies, setCurrencies] = useState([]);
   const [allCoins, setAllCoins] = useState([]);
   const [mostPopularCoin, setMostPopularCoin] = useState([]);
+  const [allFiats, setAllFiats] = useState([]);
+  const [mostPopularFiat, setMostPopularFiat] = useState([]);
+  const [exchangeType, setExchangeType] = useState("crypto-to-crypto");
 
   const handleSearch = async ({ target }) => {
     const { value } = target;
 
     const filteredAllCoin = await allCoinFiltered(currencies, value);
     const filteredPopularCoin = await popularCoinFiltered(currencies, value);
+    const filteredAllFiat = await allFiatFiltered(currencies, value);
+    const filteredPopularFiat = await popularFiatFiltered(currencies, value);
 
     setAllCoins([...filteredAllCoin]);
     setMostPopularCoin([...filteredPopularCoin]);
+    setAllFiats([...filteredAllFiat]);
+    setMostPopularFiat([...filteredPopularFiat]);
   };
 
   const getAllCurrencies = async () => {
     const response = await getApi(`${link}get_all_currencies`);
     if (response.status == 200) {
-      const data = await response.data.slice(0, 100);
+      const data = await response.data.slice(0, 800);
       setCurrencies(data);
     }
   };
@@ -65,7 +72,8 @@ export const ExchangeProvider = ({ children }) => {
       `${link}get_estimated`,
       send.symbol.toLowerCase(),
       receive.symbol.toLowerCase(),
-      send.amount
+      send.amount,
+      `${exchangeType === "crypto-to-crypto" ? true : false}`
     );
     if (response.status == 200) {
       const data = await response.data;
@@ -113,8 +121,17 @@ export const ExchangeProvider = ({ children }) => {
 
   useEffect(() => {
     getAllCurrencies();
-    popularCoin(currencies, setMostPopularCoin);
-    allCoin(currencies, setAllCoins);
+
+    if (exchangeType === "crypto-to-crypto") {
+      popularCoin(currencies, setMostPopularCoin);
+      allCoin(currencies, setAllCoins);
+    }
+    if (exchangeType === "fiat-to-crypto") {
+      popularCoinForFiatToCrypto(currencies, setMostPopularCoin);
+      allCoinForFiatToCrypto(currencies, setAllCoins);
+      popularFiatForFiatToCrypto(currencies, setMostPopularFiat);
+      allFiatsForFiatToCrypto(currencies, setAllFiats);
+    }
   }, [showCurrencies]);
 
   return (
@@ -122,6 +139,10 @@ export const ExchangeProvider = ({ children }) => {
       value={{
         allCoins,
         mostPopularCoin,
+        allFiats,
+        mostPopularFiat,
+        exchangeType,
+        setExchangeType,
         send,
         setSend,
         receive,
@@ -134,8 +155,7 @@ export const ExchangeProvider = ({ children }) => {
         handleAmount,
         handleFocus,
         error,
-        setCreateXData,
-        createXData,
+
       }}
     >
       {children}

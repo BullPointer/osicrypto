@@ -50,6 +50,9 @@ const Currrencies = ({
   handleRemoveCurrencies,
   allCoins,
   mostPopularCoin,
+  allFiats,
+  mostPopularFiat,
+  exchangeType,
   handleSelectedCurrency,
   handleSearch,
 }) => {
@@ -82,6 +85,16 @@ const Currrencies = ({
           text={"Popular Currencies"}
           handleSelectedCurrency={handleSelectedCurrency}
         />
+        {exchangeType === "fiat-to-crypto" && (
+          <Currency
+            setData={setData}
+            type={name}
+            transactionObj={transactionObj}
+            coins={mostPopularFiat}
+            text={"Popular Fiat"}
+            handleSelectedCurrency={handleSelectedCurrency}
+          />
+        )}
         <Currency
           setData={setData}
           type={name}
@@ -90,6 +103,16 @@ const Currrencies = ({
           text={"All Currencies"}
           handleSelectedCurrency={handleSelectedCurrency}
         />
+        {exchangeType === "fiat-to-crypto" && (
+          <Currency
+            setData={setData}
+            type={name}
+            transactionObj={transactionObj}
+            coins={allFiats}
+            text={"Popular Fiat"}
+            handleSelectedCurrency={handleSelectedCurrency}
+          />
+        )}
       </div>
     </div>
   );

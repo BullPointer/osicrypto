@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useLocation } from "react-router-dom";
-import { useExchangeContext } from "../context/ExchangeContext";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 
 export const ProtectedRoutes = ({ children }) => {
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const location = useLocation();
-  const { createXData } = useExchangeContext();
 
-  if (!createXData) {
+  if (!id) {
     return (
       <Navigate
         to={"/osicrypto/exchange"}

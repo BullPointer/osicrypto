@@ -4,16 +4,36 @@ import ErrorBoundary from "../ErrorBoundary";
 import Recieve from "./Exchange/recieve";
 import Send from "./Exchange/send";
 import { useHomeExchangeContext } from "../context/HomeExchangeContext";
+import { useExchangeContext } from "../context/ExchangeContext";
 
 const ExchangeCurrency = () => {
-  const link = "https://api.simpleswap.io/create_exchange";
-  const { send, receive, error } = useHomeExchangeContext();
+  const { send, receive, error, exchangeType, setExchangeType } =
+    useHomeExchangeContext();
+  const {
+    setSend: setSendX,
+    send: sendX,
+    receive: receiveX,
+    setReceive: setReceiveX,
+  } = useExchangeContext();
 
   const navigate = useNavigate();
 
   const handleExchange = () => {
-    console.log(link);
-    if (!error) {
+    if (!error && !send.isLoading && !receive.isLoading) {
+      setSendX({
+        ...sendX,
+        amount: send.amount,
+        name: send.name,
+        symbol: send.symbol,
+        image: send.image,
+      });
+      setReceiveX({
+        ...receiveX,
+        amount: receive.amount,
+        name: receive.name,
+        symbol: receive.symbol,
+        image: receive.image,
+      });
       navigate({
         pathname: "/osicrypto/exchange",
         search: createSearchParams({
@@ -26,12 +46,33 @@ const ExchangeCurrency = () => {
       console.log(error);
     }
   };
+  const commonStyle = "flex flex-row justify-center items-center";
+
+  const exchangeStyle = "w-full p-2 text-[12px] font-[700] cursor-pointer";
 
   return (
     <div className="pb-16">
       {/* <!-- start of currency exchange --> */}
       {/* <div className="bg-[#000] max-w-[800px] rounded-[25px] text-center my-[20px] mx-auto p-[10px] text-[#fff]"> */}
       <div className="exchange-container ">
+        <div className={`${commonStyle} w-full mb-5`}>
+          <div
+            onClick={() => setExchangeType("crypto-to-crypto")}
+            className={`${exchangeStyle} text-[#202020] ${
+              exchangeType === "crypto-to-crypto" ? "bg-[#eeeeee]" : ""
+            } rounded-tr-xl `}
+          >
+            Exchange Crypto
+          </div>
+          <div
+            onClick={() => setExchangeType("fiat-to-crypto")}
+            className={`${exchangeStyle} text-[#202020] ${
+              exchangeType === "fiat-to-crypto" ? "bg-[#eeeeee]" : ""
+            }  rounded-bl-xl `}
+          >
+            Buy/Sell Crypto
+          </div>
+        </div>
         <h2>Select currency</h2>
         <div className="exchange-box">
           <ErrorBoundary fallback="">
@@ -46,7 +87,11 @@ const ExchangeCurrency = () => {
           onClick={handleExchange}
           className="grid cursor-pointer w-[80%] rounded-[50px] mx-auto my-[20px] p-[12px] font-[600] bg-[#ff4b12] text-[#fff]"
         >
-          Continue
+          {send.isLoading && receive.isLoading ? (
+            <div className="w-5 h-5 rounded-full border-b-2 animate-spin mx-auto" />
+          ) : (
+            "Continue"
+          )}
         </div>
       </div>
 

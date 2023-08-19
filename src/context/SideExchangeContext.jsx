@@ -9,6 +9,14 @@ import {
   popularCoinFiltered,
 } from "../components/utils/popularCoin";
 import { getApi, getEstimatedValue } from "../handleApi/currencyApi";
+import {
+  allCoinForFiatToCrypto,
+  allFiatFiltered,
+  allFiatsForFiatToCrypto,
+  popularCoinForFiatToCrypto,
+  popularFiatFiltered,
+  popularFiatForFiatToCrypto,
+} from "../components/utils/popularFiat";
 
 const link = "https://api.simpleswap.io/";
 
@@ -18,21 +26,28 @@ export const SideExchangeProvider = ({ children }) => {
   const [currencies, setCurrencies] = useState([]);
   const [allCoins, setAllCoins] = useState([]);
   const [mostPopularCoin, setMostPopularCoin] = useState([]);
+  const [allFiats, setAllFiats] = useState([]);
+  const [mostPopularFiat, setMostPopularFiat] = useState([]);
+  const [exchangeType, setExchangeType] = useState("crypto-to-crypto");
 
   const handleSearch = async ({ target }) => {
     const { value } = target;
 
     const filteredAllCoin = await allCoinFiltered(currencies, value);
     const filteredPopularCoin = await popularCoinFiltered(currencies, value);
+    const filteredAllFiat = await allFiatFiltered(currencies, value);
+    const filteredPopularFiat = await popularFiatFiltered(currencies, value);
 
     setAllCoins([...filteredAllCoin]);
     setMostPopularCoin([...filteredPopularCoin]);
+    setAllFiats([...filteredAllFiat]);
+    setMostPopularFiat([...filteredPopularFiat]);
   };
 
   const getAllCurrencies = async () => {
     const response = await getApi(`${link}get_all_currencies`);
     if (response.status == 200) {
-      const data = await response.data.slice(0, 100);
+      const data = await response.data.slice(0, 800);
       setCurrencies(data);
     }
   };
@@ -64,25 +79,25 @@ export const SideExchangeProvider = ({ children }) => {
       `${link}get_estimated`,
       send.symbol.toLowerCase(),
       receive.symbol.toLowerCase(),
-      send.amount
+      send.amount,
+      `${exchangeType === "crypto-to-crypto" ? true : false}`
     );
     if (response.status == 200) {
       const data = await response.data;
-      setReceive({...receive, amount: data, isLoading: false});
-      setError(null)
+      setReceive({ ...receive, amount: data, isLoading: false });
+      setError(null);
     } else {
-      setReceive({...receive, isLoading: true});
+      setReceive({ ...receive, isLoading: true });
       setError(response.response.data.description);
     }
   };
   const handleFocus = () => {
-    setReceive({...receive, isLoading: true});
-  }
+    setReceive({ ...receive, isLoading: true });
+  };
   const handleAmount = ({ target }) => {
     const { value } = target;
     const regex = /^[0-9]*\.?[0-9]*$/;
     if (regex.test(value)) return setSend({ ...send, amount: value });
-
   };
 
   const handleSelectedCurrency = (
@@ -107,20 +122,33 @@ export const SideExchangeProvider = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       getEstimatedAmount();
-      setReceive({...receive, isLoading: false});
-    }, 1000)
+      setReceive({ ...receive, isLoading: false });
+    }, 1000);
   }, [send, showCurrencies]);
 
   useEffect(() => {
     getAllCurrencies();
-    popularCoin(currencies, setMostPopularCoin);
-    allCoin(currencies, setAllCoins);
+
+    if (exchangeType === "crypto-to-crypto") {
+      popularCoin(currencies, setMostPopularCoin);
+      allCoin(currencies, setAllCoins);
+    }
+    if (exchangeType === "fiat-to-crypto") {
+      popularCoinForFiatToCrypto(currencies, setMostPopularCoin);
+      allCoinForFiatToCrypto(currencies, setAllCoins);
+      popularFiatForFiatToCrypto(currencies, setMostPopularFiat);
+      allFiatsForFiatToCrypto(currencies, setAllFiats);
+    }
   }, [showCurrencies]);
   return (
     <SideExchangeContext.Provider
       value={{
         allCoins,
         mostPopularCoin,
+        allFiats,
+        mostPopularFiat,
+        exchangeType,
+        setExchangeType,
         send,
         setSend,
         receive,

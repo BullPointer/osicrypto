@@ -9,8 +9,11 @@ const CryptoList = ({ type }) => {
     stopWindow,
     clickWindow,
     handleChange,
+    exchangeType,
     filteredAllCoins,
     filteredPopularCoin,
+    filteredAllFiats,
+    filteredPopularFiat,
     searchValue,
   } = useHomeExchangeContext();
   const commonStyle = "flex flex-row justify-center items-center";
@@ -35,12 +38,14 @@ const CryptoList = ({ type }) => {
             />
           </div>
           <div className="overflow-y-scroll text-black h-[100%] bg-white min-h-[100%]">
-            <div className="px-4 py-6 opacity-70 text-left">Popular Currencies</div>
+            <div className="px-4 py-6 opacity-70 text-left">
+              Popular Currencies
+            </div>
             {filteredPopularCoin?.map(({ image, name, symbol }, index) => (
               <div
-              onClick={() => handleCurrency(name, symbol, type)}
-              className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
-              key={index}
+                onClick={() => handleCurrency(name, symbol, type, image)}
+                className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
+                key={index}
               >
                 <div className={`${commonStyle} gap-2 `}>
                   <img className="py-4 px-2" src={image} alt="" />
@@ -51,17 +56,44 @@ const CryptoList = ({ type }) => {
                 <div
                   className="py-4 px-2 text-[#312e2e] font-[500] font-mono text-[14px] md:text-lg"
                   style={{ marginLeft: "10px" }}
-                  >
+                >
                   {name}
                 </div>
               </div>
             ))}
+            {exchangeType === "fiat-to-crypto" && (
+              <>
+                <div className="px-4 py-6 opacity-70 text-left">
+                  Popular Fiat
+                </div>
+                {filteredPopularFiat?.map(({ image, name, symbol }, index) => (
+                  <div
+                    onClick={() => handleCurrency(name, symbol, type, image)}
+                    className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
+                    key={index}
+                  >
+                    <div className={`${commonStyle} gap-2 `}>
+                      <img className="py-4 px-2" src={image} alt="" />
+                      <div className="py-4 text-[#312e2e] font-[500] font-mono">
+                        {symbol.toUpperCase()}
+                      </div>
+                    </div>
+                    <div
+                      className="py-4 px-2 text-[#312e2e] font-[500] font-mono text-[14px] md:text-lg"
+                      style={{ marginLeft: "10px" }}
+                    >
+                      {name}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
             <div className="px-4 py-6 opacity-70 text-left">All Currencies</div>
             {filteredAllCoins?.map(({ image, name, symbol }, index) => (
               <div
-              onClick={() => handleCurrency(name, symbol, type)}
-              className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
-              key={index}
+                onClick={() => handleCurrency(name, symbol, type, image)}
+                className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
+                key={index}
               >
                 <div className={`${commonStyle} gap-2 `}>
                   <img className="py-4 px-2" src={image} alt="" />
@@ -72,11 +104,39 @@ const CryptoList = ({ type }) => {
                 <div
                   className="py-4 px-2 text-[#312e2e] font-[500] font-mono text-[14px] md:text-lg"
                   style={{ marginLeft: "10px" }}
-                  >
+                >
                   {name}
                 </div>
               </div>
             ))}
+            {exchangeType === "fiat-to-crypto" && (
+              <>
+                {" "}
+                <div className="px-4 py-6 opacity-70 text-left">
+                  All Fiat
+                </div>
+                {filteredAllFiats?.map(({ image, name, symbol }, index) => (
+                  <div
+                    onClick={() => handleCurrency(name, symbol, type, image)}
+                    className="flex flex-row justify-between items-center  cursor-pointer hover:bg-[#ccc9c9] border-b"
+                    key={index}
+                  >
+                    <div className={`${commonStyle} gap-2 `}>
+                      <img className="py-4 px-2" src={image} alt="" />
+                      <div className="py-4 text-[#312e2e] font-[500] font-mono">
+                        {symbol.toUpperCase()}
+                      </div>
+                    </div>
+                    <div
+                      className="py-4 px-2 text-[#312e2e] font-[500] font-mono text-[14px] md:text-lg"
+                      style={{ marginLeft: "10px" }}
+                    >
+                      {name}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

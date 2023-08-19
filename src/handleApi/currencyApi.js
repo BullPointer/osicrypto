@@ -20,35 +20,34 @@ async function getCurrency(apiLink, symbol) {
     return error;
   }
 }
-async function getRange(apiLink, from, to) {
+async function getRange(apiLink, from, to, bool) {
   const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
   try {
     const response = await axios.get(
-      `${apiLink}?api_key=${api_key}&fixed=true&currency_from=${from}&currency_to=${to}`
+      `${apiLink}?api_key=${api_key}&fixed=${bool}&currency_from=${from}&currency_to=${to}`
     );
     return response;
   } catch (error) {
     return error;
   }
 }
-async function getEstimatedValue(apiLink, from, to, amount) {
+async function getEstimatedValue(apiLink, from, to, amount, bool) {
   const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
 
   try {
     const response = await axios.get(
-      `${apiLink}?api_key=${api_key}&fixed=true&currency_from=${from}&currency_to=${to}&amount=${amount}`
+      `${apiLink}?api_key=${api_key}&fixed=${bool}&currency_from=${from}&currency_to=${to}&amount=${amount}`
     );
     return response;
   } catch (error) {
     return error;
   }
 }
-async function createExchange(apiLink, from, to, amount, address_to) {
+async function createExchange(apiLink, from, to, amount, address_to, bool) {
   const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
-  // https://api.simpleswap.io/create_exchange?api_key=f1111d26-33eb-4314-8374-a40e9d2887ee/
-
+  console.log("Making some text ", bool);
   const requestObj = {
-    fixed: true,
+    fixed: (bool),
     currency_from: from,
     currency_to: to,
     amount: amount,
@@ -72,5 +71,18 @@ async function createExchange(apiLink, from, to, amount, address_to) {
   );
   return response;
 }
+async function getExchange(apiLink, id) {
+  const api_key = import.meta.env.VITE_SIMPLESWAP_API_KEY;
 
-export { getApi, getCurrency, getRange, getEstimatedValue, createExchange };
+  const response = await axios.get(`${apiLink}?api_key=${api_key}&id=${id}`);
+  return response;
+}
+
+export {
+  getApi,
+  getCurrency,
+  getRange,
+  getEstimatedValue,
+  createExchange,
+  getExchange,
+};

@@ -4,12 +4,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { allCoin, popularCoin } from "../components/utils/popularCoin";
 import { getApi, getEstimatedValue, getRange } from "../handleApi/currencyApi";
+import {
+  allCoinForFiatToCrypto,
+  allFiatsForFiatToCrypto,
+  popularCoinForFiatToCrypto,
+  popularFiatForFiatToCrypto,
+} from "../components/utils/popularFiat";
 
 const HomeContext = createContext();
 
 const link = "https://api.simpleswap.io/";
 
 export const HomeExchangeContext = ({ children }) => {
+  const [exchangeType, setExchangeType] = useState("crypto-to-crypto");
   const [range, setRange] = useState(null);
   const [currencies, setCurrencies] = useState([]);
   const [error, setError] = useState(null);
@@ -17,6 +24,7 @@ export const HomeExchangeContext = ({ children }) => {
     amount: "0.05",
     name: "Bitcoin",
     symbol: "BTC",
+    image: "https://static.simpleswap.io/images/currencies-logo/btc.svg",
     isLoading: false,
   });
 
@@ -24,6 +32,7 @@ export const HomeExchangeContext = ({ children }) => {
     amount: "",
     name: "Ethereum",
     symbol: "ETH",
+    image: "https://static.simpleswap.io/images/currencies-logo/eth.svg",
     isLoading: true,
   });
   const [selectCoin, setSelectCoin] = useState(null);
@@ -35,7 +44,7 @@ export const HomeExchangeContext = ({ children }) => {
   const getAllCurrencies = async () => {
     const response = await getApi(`${link}get_all_currencies`);
     if (response.status == 200) {
-      const data = await response.data.slice(0, 100);
+      const data = await response.data.slice(0, 800);
       setCurrencies(data);
     }
   };
@@ -45,7 +54,8 @@ export const HomeExchangeContext = ({ children }) => {
       `${link}get_estimated`,
       send.symbol.toLowerCase(),
       receive.symbol.toLowerCase(),
-      send.amount
+      send.amount,
+      `${exchangeType === "crypto-to-crypto" ? true : false}`
     );
     if (response.status == 200) {
       const data = await response.data;
@@ -56,12 +66,12 @@ export const HomeExchangeContext = ({ children }) => {
       setError(response.response.data.description);
     }
   };
-  const handleCurrency = async (name, symbol, type) => {
+  const handleCurrency = async (name, symbol, type, image) => {
     if (type == "send") {
-      setSend({ ...send, name, symbol });
+      setSend({ ...send, name, symbol, image });
       setSelectCoin(null);
     } else {
-      setReceive({ ...receive, name, symbol });
+      setReceive({ ...receive, name, symbol, image });
       setSelectCoin(null);
 
       setReceive({ ...receive, isLoading: true });
@@ -69,7 +79,8 @@ export const HomeExchangeContext = ({ children }) => {
         `${link}get_estimated`,
         send.symbol.toLowerCase(),
         symbol.toLowerCase(),
-        send.amount
+        send.amount,
+        `${exchangeType === "crypto-to-crypto" ? true : false}`
       );
       if (response.status == 200) {
         const data = await response.data;
@@ -78,11 +89,12 @@ export const HomeExchangeContext = ({ children }) => {
           amount: data,
           symbol,
           name,
+          image,
           isLoading: false,
         });
         setError(null);
       } else {
-        setReceive({ ...receive, symbol, name, isLoading: true });
+        setReceive({ ...receive, symbol, name, image, isLoading: true });
         setError(response.response.data.description);
       }
     }
@@ -92,7 +104,8 @@ export const HomeExchangeContext = ({ children }) => {
     const response = await getRange(
       link + "get_ranges",
       send.symbol,
-      receive.symbol
+      receive.symbol,
+      `${exchangeType === "crypto-to-crypto" ? true : false}`
     );
     if (response.status == 200) setRange(response.data.max);
   }
@@ -118,6 +131,8 @@ export const HomeExchangeContext = ({ children }) => {
 
   const [allCoins, setAllCoins] = useState([]);
   const [mostPopularCoin, setMostPopularCoin] = useState([]);
+  const [allFiats, setAllFiats] = useState([]);
+  const [mostPopularFiat, setMostPopularFiat] = useState([]);
 
   const filteredAllCoins = allCoins.filter((data) => {
     return data.name.toLowerCase().includes(searchValue.toLowerCase());
@@ -125,10 +140,24 @@ export const HomeExchangeContext = ({ children }) => {
   const filteredPopularCoin = mostPopularCoin.filter((data) => {
     return data.name.toLowerCase().includes(searchValue.toLowerCase());
   });
+  const filteredAllFiats = allFiats.filter((data) => {
+    return data.name.toLowerCase().includes(searchValue.toLowerCase());
+  });
+  const filteredPopularFiat = mostPopularFiat.filter((data) => {
+    return data.name.toLowerCase().includes(searchValue.toLowerCase());
+  });
 
   useEffect(() => {
-    popularCoin(currencies, setMostPopularCoin);
-    allCoin(currencies, setAllCoins);
+    if (exchangeType === "crypto-to-crypto") {
+      popularCoin(currencies, setMostPopularCoin);
+      allCoin(currencies, setAllCoins);
+    }
+    if (exchangeType === "fiat-to-crypto") {
+      popularCoinForFiatToCrypto(currencies, setMostPopularCoin);
+      allCoinForFiatToCrypto(currencies, setAllCoins);
+      popularFiatForFiatToCrypto(currencies, setMostPopularFiat);
+      allFiatsForFiatToCrypto(currencies, setAllFiats);
+    }
   }, [selectCoin]);
 
   return (
@@ -144,8 +173,12 @@ export const HomeExchangeContext = ({ children }) => {
 
         clickWindow,
         stopWindow,
+        exchangeType,
+        setExchangeType,
         filteredAllCoins,
         filteredPopularCoin,
+        filteredAllFiats,
+        filteredPopularFiat,
         handleChange,
         searchValue,
         handleAmount,

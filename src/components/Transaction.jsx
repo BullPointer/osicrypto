@@ -15,6 +15,9 @@ const Transaction = ({
   setData,
   allCoins,
   mostPopularCoin,
+  allFiats,
+  mostPopularFiat,
+  exchangeType,
   handleSelectedCurrency,
   handleSearch,
 }) => {
@@ -66,6 +69,9 @@ const Transaction = ({
           handleRemoveCurrencies={handleRemoveCurrencies}
           allCoins={allCoins}
           mostPopularCoin={mostPopularCoin}
+          allFiats={allFiats}
+          mostPopularFiat={mostPopularFiat}
+          exchangeType={exchangeType}
           handleSelectedCurrency={handleSelectedCurrency}
           handleSearch={handleSearch}
         />

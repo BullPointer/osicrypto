@@ -2,19 +2,18 @@
 import { Icon } from "@iconify/react";
 import Transaction from "../components/Transaction";
 import { useExchangeContext } from "../context/ExchangeContext";
-import { useHomeExchangeContext } from "../context/HomeExchangeContext";
 import { createExchange } from "../handleApi/currencyApi";
-import { useEffect, useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
 
 const AddExchangeDetails = () => {
   const navigate = useNavigate();
+
   const [receipient, setReceipient] = useState("");
   const [addrError, setAddrError] = useState(false);
   const [exchangeError, setExchangeError] = useState(null);
-  const link = "https://api.simpleswap.io/create_exchange";
 
   const {
     send,
@@ -29,11 +28,16 @@ const AddExchangeDetails = () => {
     handleFocus,
     allCoins,
     mostPopularCoin,
+    allFiats,
+    mostPopularFiat,
+    exchangeType,
+    setExchangeType,
+
     handleSelectedCurrency,
     handleSearch,
-    setCreateXData,
   } = useExchangeContext();
   const handleExchange = async () => {
+    const link = "https://api.simpleswap.io/create_exchange";
     const preAddressRegex = /^[0-9a-zA-Z]{25,}$/;
     !preAddressRegex.test(receipient)
       ? setAddrError(true)
@@ -45,7 +49,8 @@ const AddExchangeDetails = () => {
         send.symbol.toLowerCase(),
         receive.symbol.toLowerCase(),
         send.amount,
-        receipient
+        receipient,
+        `${exchangeType === "crypto-to-crypto" ? true : false}`
       );
 
       const addressRegex = new RegExp(
@@ -53,11 +58,14 @@ const AddExchangeDetails = () => {
       );
       if (addressRegex.test(receipient)) {
         setAddrError(false);
-        setCreateXData(data);
-        navigate({
-          pathname: "/osicrypto/exchange/x",
-          search: createSearchParams({ id: data.id }).toString(),
-        });
+        if (data.redirect_url) {
+          window.open(data.redirect_url, "_blank");
+        } else {
+          navigate({
+            pathname: "/osicrypto/exchange/x",
+            search: createSearchParams({ id: data.id }).toString(),
+          });
+        }
       } else {
         setAddrError(true);
       }
@@ -66,7 +74,8 @@ const AddExchangeDetails = () => {
         setExchangeError("Unsupported pair");
       } else if (error.response && error.response.status === 422) {
         setExchangeError(null);
-        console.log("Non of your business");
+      } else if (error.response && error.response.status === 400) {
+        setExchangeError(null);
       } else {
         setExchangeError(
           error.response?.data.description || "Unsupported pair"
@@ -75,25 +84,6 @@ const AddExchangeDetails = () => {
       console.log("error ", error.response.status, error.response);
     }
   };
-
-  const { send: homeSend, receive: homeReceive } = useHomeExchangeContext();
-
-  useEffect(() => {
-    setSend({
-      ...send,
-      amount: homeSend.amount,
-      name: homeSend.name,
-      symbol: homeSend.symbol,
-      image: homeSend.image,
-    });
-    setReceive({
-      ...receive,
-      amount: homeReceive.amount,
-      name: homeReceive.name,
-      symbol: homeReceive.symbol,
-      image: homeReceive.image,
-    });
-  }, []);
 
   const commonStyle = "flex flex-row justify-center items-center";
   const exchangeStyle =
@@ -104,10 +94,23 @@ const AddExchangeDetails = () => {
       <div className="">
         <div className="max-w-[800px] rounded-[25px] text-center my-[20px] mx-auto px-[10px] py-5 text-[#fff]">
           <div className="text-[#fff] text-2xl p-2">Exchange Details</div>
+
           <div className="h-auto left-10 w-[90%] mx-auto bg-white  shadow-lg rounded-lg border">
             <div className={`${commonStyle} border-b`}>
-              <div className={`${exchangeStyle}`}>Exchange Crypto</div>
-              <div className={`${exchangeStyle} bg-[#eeeeee]`}>
+              <div
+                onClick={() => setExchangeType("crypto-to-crypto")}
+                className={`${exchangeStyle} ${
+                  exchangeType === "crypto-to-crypto" ? "bg-[#eeeeee]" : ""
+                }`}
+              >
+                Exchange Crypto
+              </div>
+              <div
+                onClick={() => setExchangeType("fiat-to-crypto")}
+                className={`${exchangeStyle} ${
+                  exchangeType === "fiat-to-crypto" ? "bg-[#eeeeee]" : ""
+                } `}
+              >
                 Buy/Sell Crypto
               </div>
             </div>
@@ -123,6 +126,9 @@ const AddExchangeDetails = () => {
               showCurrencies={showCurrencies}
               allCoins={allCoins}
               mostPopularCoin={mostPopularCoin}
+              allFiats={allFiats}
+              mostPopularFiat={mostPopularFiat}
+              exchangeType={exchangeType}
               handleSelectedCurrency={handleSelectedCurrency}
               handleSearch={handleSearch}
             />
@@ -146,6 +152,9 @@ const AddExchangeDetails = () => {
               showCurrencies={showCurrencies}
               allCoins={allCoins}
               mostPopularCoin={mostPopularCoin}
+              allFiats={allFiats}
+              mostPopularFiat={mostPopularFiat}
+              exchangeType={exchangeType}
               handleSelectedCurrency={handleSelectedCurrency}
               handleSearch={handleSearch}
             />
@@ -184,7 +193,18 @@ const AddExchangeDetails = () => {
             </div>
             <p className="text-black p-2 text-[10px] sm:text-sm">
               By clicking <span className="text-blue-600"> Exchange</span>, I
-              agree to the Privacy Policy and Terms of Service.
+              agree to the{" "}
+              <Link className="text-red-400" to={"/osicrypto/privacy-policy"}>
+                {" "}
+                Privacy Policy{" "}
+              </Link>{" "}
+              and{" "}
+              <Link
+                className="text-red-400"
+                to={"/osicrypto/terms-and-conditions"}
+              >
+                Terms of Service.
+              </Link>
             </p>
           </div>
         </div>
