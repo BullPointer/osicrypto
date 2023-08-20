@@ -168,9 +168,9 @@ const MakeExchange = () => {
                 />
                 <div className={`${commonStyle}`}>Exchanging</div>
               </div>
-              <div
+             {createXData.status === "expired" && <div
                 className={`flex flex-col justify-center items-center ${
-                  createXData.status === "sending"
+                  createXData.status === "expired"
                     ? "opacity-100"
                     : "opacity-20"
                 }`}
@@ -179,8 +179,8 @@ const MakeExchange = () => {
                   className="bg-[#7f7fbb]  text-3xl rounded-full "
                   icon="teenyicons:send-solid"
                 />
-                <div className={`${commonStyle}`}>Send</div>
-              </div>
+                <div className={`${commonStyle}`}>Expired</div>
+              </div>}
             </div>
           </div>
           <div className="rounded-md bg-[#000] p-2">

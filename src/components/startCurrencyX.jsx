@@ -5,6 +5,8 @@ import Recieve from "./Exchange/recieve";
 import Send from "./Exchange/send";
 import { useHomeExchangeContext } from "../context/HomeExchangeContext";
 import { useExchangeContext } from "../context/ExchangeContext";
+import { useEffect } from "react";
+import { visitorsApi } from "../handleApi/api";
 
 const ExchangeCurrency = () => {
   const { send, receive, error, exchangeType, setExchangeType } =
@@ -46,6 +48,26 @@ const ExchangeCurrency = () => {
       console.log(error);
     }
   };
+
+  const sessionFunc = async (value) => {
+    try {
+      const response = await visitorsApi(value);
+      console.log(response);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    const value = sessionStorage.getItem("visit");
+    if (!value) {
+      sessionFunc("new-visit");
+      sessionStorage.setItem("visit", "v");
+    } else {
+      sessionFunc("existing-visit");
+    }
+  }, []);
+
   const commonStyle = "flex flex-row justify-center items-center";
 
   const exchangeStyle = "w-full p-2 text-[12px] font-[700] cursor-pointer";
