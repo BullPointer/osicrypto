@@ -6,7 +6,7 @@ import Send from "./Exchange/send";
 import { useHomeExchangeContext } from "../context/HomeExchangeContext";
 import { useExchangeContext } from "../context/ExchangeContext";
 import { useEffect } from "react";
-import { visitorsApi } from "../handleApi/api";
+import { userIdentifierApi, visitorsApi } from "../handleApi/api";
 
 const ExchangeCurrency = () => {
   const { send, receive, error, exchangeType, setExchangeType } =
@@ -51,12 +51,24 @@ const ExchangeCurrency = () => {
 
   const sessionFunc = async (value) => {
     try {
-      const response = await visitorsApi(value);
-      console.log(response);
+      await visitorsApi(value);
     } catch (error) {
       console.log("Error: ", error);
     }
-  }
+  };
+  const userIdentifierFunc = async () => {
+    const vid = localStorage.getItem("vid");
+    try {
+      if (!vid) {
+        const { data } = await userIdentifierApi("new-visit");
+        localStorage.setItem("vid", data.data.vid);
+      } else {
+        await userIdentifierApi("existing-visit", vid);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
   useEffect(() => {
     const value = sessionStorage.getItem("visit");
@@ -66,6 +78,7 @@ const ExchangeCurrency = () => {
     } else {
       sessionFunc("existing-visit");
     }
+    userIdentifierFunc();
   }, []);
 
   const commonStyle = "flex flex-row justify-center items-center";
