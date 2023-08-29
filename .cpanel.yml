@@ -1,6 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/osicrypto/public_html/
-    - /bin/cp -R css $DEPLOYPATH
-    - /bin/cp index.html $DEPLOYPATH
