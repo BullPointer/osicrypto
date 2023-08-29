@@ -49,7 +49,7 @@ const App = () => {
               <MakeExchange />
             </ProtectedRoutes>
           }
-        />
+        /> 
       </Routes>
     </>
   );
