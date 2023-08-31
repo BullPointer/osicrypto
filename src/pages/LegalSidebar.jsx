@@ -31,7 +31,7 @@ const LegalSidebar = ({ leftScrollDivRef, isFixed }) => {
       ref={leftScrollDivRef}
       className={`${
         isFixed ? "sticky top-0 left-0" : "overflow-auto"
-      } flex flex-col justify-start items-center w-full lg:w-[30pc] h-auto lg:min-h-screen lg:pt-10 bg-black `}
+      } flex flex-col justify-start items-center w-full lg:w-[30pc] h-auto lg:min-h-screen lg:pt-10  bg-[#444]`}
     >
       <div className="flex flex-col justify-center items-start w-full ">
         <div className="flex flex-row justify-between items-center text-[25px] font-[600] text-[#fff] px-5 py-3 w-full">
@@ -63,7 +63,7 @@ const LegalSidebar = ({ leftScrollDivRef, isFixed }) => {
                 onClick={() => handleActive(index, link)}
                 className={`text-[18px] text-[#d8d3d3] px-5 py-3 cursor-pointer ${
                   pathname === link && " text-blue-300"
-                } hover:text-blue-300 hover:bg-[#010102] w-full`}
+                } hover:text-blue-300 hover:bg-[#333] w-full`}
               >
                 {text}
               </div>
