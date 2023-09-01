@@ -187,20 +187,17 @@ body {
 }
 
 .accordion {
+  /* background: rgb(0, 255, 55); */
   margin: 65px auto;
-  max-width: 800px;
-}
-
-.accordion .p {
-  font-size: 27px;
-  font-weight: 600;
-  text-align: center;
-  /* color: #fff; */
+  max-width: 70%;
+  /* max-width: 800px; */
 }
 
 .accordion .contentbx {
+  min-width: 100%;
   position: relative;
-  margin: 10px 20px;
+  margin: 10px 0;
+  height: min-content;
 }
 
 .accordion .contentbx .label {
@@ -212,7 +209,7 @@ body {
   border-radius: 5px;
 }
 
-.accordion .contentbx p {
+.accordion .contentbx p{
   color: #000;
   font-weight: 900;
 }
@@ -244,7 +241,7 @@ body {
 }
 
 .accordion .contentbx.active .content {
-  height: 150px;
+  height: auto;
   padding: 10px;
 }
 

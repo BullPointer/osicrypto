@@ -1,84 +1,199 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
-import { faqData } from "../components/database/faq";
 import Faqtext from "../components/faqtext";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
+import { getFaqsObject } from "./object";
 
 function FaQ() {
   // start of responsive faq drop down
+  const [faq, setFaq] = useState({});
+  const [clickedIndex, setClickedIndex] = useState(null);
 
-  const [clickedIndex, setClickedIndex] = useState({
-    currentObj: null,
-    faq: { ...faqData },
-  });
+  useEffect(() => {
+    getFaqsObject(setFaq);
+  }, []);
 
-  function handleClick(index, key) {
-    const { faq } = clickedIndex;
-    setClickedIndex({ ...clickedIndex, currentObj: faq[key][index] });
-    if (clickedIndex.faq[key][index] === clickedIndex.currentObj) {
-      setClickedIndex({ ...clickedIndex, currentObj: null });
-    } else {
-      setClickedIndex({ ...clickedIndex, currentObj: faq[key][index] });
-    }
-  }
-  function toggle(index, key) {
-    return clickedIndex.faq[key][index] === clickedIndex.currentObj
-      ? "active"
-      : "none";
-  }
+  const handleClick = (key) =>
+    setClickedIndex(clickedIndex === key ? null : key);
+
+  const toggle = (key) => (clickedIndex === key ? "active" : "none");
+
   const { textColor } = useHomeContext();
   // end of responsive faq drop down
   return (
     <>
-    <Navbar />
+      <Navbar />
       {/* <!-- start of FAQ section --> */}
       <div className="accordion" id="FAQ">
-        <p className={`p text-${textColor}`}>Do you have any questions?</p>
-        <div>
-          <div className="mt-5 mx-5 p-2 text-2xl text-red-400 font-[600]">About</div>
-          {faqData.about.map((data, index) => (
+        <p
+          style={{ color: textColor }}
+          className={`text-[27px] font-[600] text-center p text-${textColor}`}
+        >
+          Do you have any questions?
+        </p>
+        <div className=" ">
+          {faq["Main"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              About
+            </div>
+          )}
+          {faq["Main"]?.map((data, index) => (
             <Faqtext
               key={index}
               handleClick={handleClick}
-              keytext={"about"}
+              keytext={"Main"}
               toggle={toggle}
               data={data}
               index={index}
             />
           ))}
-          <div className="mt-5 mx-5 p-2 text-2xl text-red-400 font-[600]">
-            Cryptocurrency Exchange Process
-          </div>
-          {faqData.cryptocurrencyExchangeProcess.map((data, index) => (
+
+          {faq["Buy"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Buy
+            </div>
+          )}
+          {faq["Buy"]?.map((data, index) => (
             <Faqtext
               key={index}
               handleClick={handleClick}
-              keytext={"cryptocurrencyExchangeProcess"}
+              keytext={"Buy"}
               toggle={toggle}
               data={data}
               index={index}
             />
           ))}
-          <div className="mt-5 mx-5 p-2 text-2xl text-red-400 font-[600]">
-            Buy Crypto With Fiat
-          </div>
-          {faqData.buyCryptoWithFiat.map((data, index) => (
+          {faq["Sell"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Sell
+            </div>
+          )}
+          {faq["Sell"]?.map((data, index) => (
             <Faqtext
               key={index}
               handleClick={handleClick}
-              keytext={"buyCryptoWithFiat"}
+              keytext={"Sell"}
               toggle={toggle}
               data={data}
               index={index}
             />
           ))}
-          <div className="mt-5 mx-5 p-2 text-2xl text-red-400 font-[600]">KYC/AML</div>
-          {faqData.KycOrAml.map((data, index) => (
+          {faq["Coin"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Coin
+            </div>
+          )}
+          {faq["Coin"]?.map((data, index) => (
             <Faqtext
               key={index}
               handleClick={handleClick}
-              keytext={"KycOrAml"}
+              keytext={"Coin"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Deposit"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Deposit
+            </div>
+          )}
+          {faq["Deposit"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Deposit"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Fiat Deposit"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Fiat Deposit
+            </div>
+          )}
+          {faq["Fiat Deposit"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Fiat Deposit"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Gift Deposit"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Gift Deposit
+            </div>
+          )}
+          {faq["Gift Deposit"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Gift Deposit"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["P2P"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              P2P
+            </div>
+          )}
+          {faq["P2P"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"P2P"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Trade"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Trade
+            </div>
+          )}
+          {faq["Trade"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Trade"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Wallet"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Wallet
+            </div>
+          )}
+          {faq["Wallet"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Wallet"}
+              toggle={toggle}
+              data={data}
+              index={index}
+            />
+          ))}
+          {faq["Withdrawn"]?.length > 0 && (
+            <div className="mt-5 px-2 p-2 text-2xl text-red-400 font-[600]">
+              Withdrawn
+            </div>
+          )}
+          {faq["Withdrawn"]?.map((data, index) => (
+            <Faqtext
+              key={index}
+              handleClick={handleClick}
+              keytext={"Withdrawn"}
               toggle={toggle}
               data={data}
               index={index}

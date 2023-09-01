@@ -11,3 +11,10 @@ export const getTermAndCondition = async () => {
   );
   return response;
 };
+
+export const getFaqs = async () => {
+  const response = await axios.get(
+    "http://localhost:3000/api/faqs"
+  );
+  return response;
+};
