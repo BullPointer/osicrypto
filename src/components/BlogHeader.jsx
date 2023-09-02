@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 import { useBlogContext } from "../context/BlogContext";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const BlogHeader = () => {
@@ -23,7 +24,12 @@ const BlogHeader = () => {
             "Price Predictions",
             "Crypto Updates",
           ].map((list, index) => (
-            <li
+            <Link
+              to={
+                list.toLowerCase() === "all"
+                  ? "/blog"
+                  : `category/${list.split(" ").join("-").toLowerCase()}`
+              }
               onClick={() => handleCategory(list)}
               className={`text-white text-lg cursor-pointer p-4 hover:text-red-300 ${activeStyle(
                 list
@@ -31,7 +37,7 @@ const BlogHeader = () => {
               key={index}
             >
               {list}
-            </li>
+            </Link>
           ))}
         </ul>
         <div className="relative w-full lg:hidden block  h-[100%] p-1 rounded-md  text-black">
@@ -57,16 +63,21 @@ const BlogHeader = () => {
                 "Price Predictions",
                 "Crypto Updates",
               ].map((list, index) => (
-                <li
-                  onClick={() => handleCategory(list)}
+                <Link
+                  to={
+                    list.toLowerCase() === "all"
+                      ? "/blog"
+                      : `category/${list.split(" ").join("-").toLowerCase()}`
+                  }
+                  onClick={() => handleCategory(list) && setDisplayList(false)}
                   value={list}
-                  className={`py-2 text-black text-lg px-4 cursor-pointer hover:text-red-300 ${activeStyle(
+                  className={`flex flex-col items-start justify-center py-2 text-black text-lg px-4 cursor-pointer hover:text-red-300 ${activeStyle(
                     list
                   )}`}
                   key={index}
                 >
                   {list}
-                </li>
+                </Link>
               ))}
           </ul>
         </div>

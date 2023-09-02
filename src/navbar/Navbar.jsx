@@ -17,7 +17,7 @@ function Navbar() {
       <div className="z-20 bg-black w-full p-6 relative flex flex-col lg:flex-row justify-center items-center">
         <h2 className="z-20 bg-black flex fixed top-0 left-0  justify-between w-full lg:w-auto lg:p-0 p-4 lg:bg-black lg:absolute lg:left-[20px] lg:top-[50%] lg:-translate-y-[50%] text-[20px] text-white">
           <div className="flex flex-row justify-center items-center gap-2 cursor-pointer">
-            <Link to="/osicrypto">© OSICRYPTO</Link>
+            <Link to="/">© OSICRYPTO</Link>
             <Icon
               onClick={handleBgColor}
               icon="icon-park-solid:dark-mode"

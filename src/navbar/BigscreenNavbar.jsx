@@ -45,9 +45,12 @@ const BigscreenNavbar = () => {
             </div>
           </div>
           {showList.key == "support" && (
-            <div onClick={() => setShowList({...showList, key: null})} className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 -left-[15%]  top-[100%]">
+            <div
+              onClick={() => setShowList({ ...showList, key: null })}
+              className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 -left-[15%]  top-[100%]"
+            >
               {supportData.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -67,9 +70,12 @@ const BigscreenNavbar = () => {
             </div>
           </div>
           {showList.key == "currencies" && (
-            <div onClick={() => setShowList({...showList, key: null})} className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]">
+            <div
+              onClick={() => setShowList({ ...showList, key: null })}
+              className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]"
+            >
               {currencies.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -89,9 +95,12 @@ const BigscreenNavbar = () => {
             </div>
           </div>
           {showList.key == "account" && (
-            <div onClick={() => setShowList({...showList, key: null})} className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]">
+            <div
+              onClick={() => setShowList({ ...showList, key: null })}
+              className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]"
+            >
               {account.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -102,9 +111,9 @@ const BigscreenNavbar = () => {
         </li>
         <li>
           <NavLink
-          onClick={() => setShowList({...showList, key: null})}
+            onClick={() => setShowList({ ...showList, key: null })}
             className=" mx-[12px] text-[18px] font-[500] text-[#fff] hover:border-t-2"
-            to={"/osicrypto/blog"}
+            to={"/blog"}
           >
             Blog
           </NavLink>

@@ -46,7 +46,7 @@ function SmallscreenNavbar({ setBtnState }) {
           {showList.key == "support" && (
             <div className="">
               {supportData.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -66,7 +66,7 @@ function SmallscreenNavbar({ setBtnState }) {
           {showList.key == "currencies" && (
             <div className="">
               {currencies.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -86,7 +86,7 @@ function SmallscreenNavbar({ setBtnState }) {
           {showList.key == "account" && (
             <div className="">
               {account.map(({ link, text }, index) => (
-                <Link key={index} to={`/osicrypto/${link}`}>
+                <Link key={index} to={`/${link}`}>
                   <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
                     {text}
                   </div>
@@ -96,7 +96,7 @@ function SmallscreenNavbar({ setBtnState }) {
           )}
         </li>
         <li onClick={() => setBtnState(false)} className="bg-black-500 cursor-pointer w-full p-2 text-[22px] text-white font-[600]">
-          <NavLink to="/osicrypto/blog">Blog</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
         </li>
       </ul>
     </nav>

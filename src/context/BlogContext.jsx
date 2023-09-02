@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
-import blogData from "../components/database/BlogData/blogData";
+import { getAllBlog } from "../handleApi/documentApi";
 
 const BlogContext = createContext();
 
@@ -20,10 +20,19 @@ export const BlogProvider = ({ children }) => {
   const listOfNum = [...Array(numOfPages + 1).keys()].slice(1);
 
   useEffect(() => {
-    const filteredBlog = blogData?.filter(
-      (blogs) => blogs.category !== "Trending News"
-    );
-    setBlogs(filteredBlog);
+    const getBlogs = async () => {
+      try {
+        const { data } = await getAllBlog();
+        const filteredBlog = data.blogs?.filter(
+          (blogs) => blogs.category !== "Trending Stories"
+        );
+        setBlogs(filteredBlog);
+      } catch (error) {
+        console.log("The error for Blog Container ", error);
+      }
+    };
+
+    getBlogs();
   }, []);
 
   useEffect(() => {
@@ -45,13 +54,17 @@ export const BlogProvider = ({ children }) => {
     }
   }, [currentPage, blogs]);
   const handleScrollTo = () =>
-  window.scrollTo({ top: screen.width <= 700 ? 120 : 250 , left: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: screen.width <= 700 ? 120 : 250,
+      left: 0,
+      behavior: "smooth",
+    });
 
   const handlePaginate = (num) => {
     listOfNum.indexOf(num) == -1
       ? setCurrentPage(numOfPagination[numOfPagination.length - 3] + 1)
       : setCurrentPage(num);
-      handleScrollTo();
+    handleScrollTo();
   };
   const handlePrev = () => {
     currentPage != 1 && setCurrentPage(currentPage - 1);
@@ -62,13 +75,23 @@ export const BlogProvider = ({ children }) => {
     handleScrollTo();
   };
 
-  const handleCategory = (category) => {
+  const handleCategory = async (category) => {
     setCurrentPage(1);
-    const filteredBlog = blogData.filter(
-      (blogs) => blogs.category === category
-    );
-    setBlogs(filteredBlog.length == 0 ? blogData : filteredBlog);
-    setActive(filteredBlog.length == 0 ? "All" : category);
+    try {
+      const { data } = await getAllBlog();
+      const filteredBlog = data.blogs?.filter(
+        (blogs) => blogs.category === category
+      );
+      if (category === "All") {
+        setBlogs(data.blogs);
+        setActive("All");
+      } else {
+        setBlogs(filteredBlog);
+        setActive(category);
+      }
+    } catch (error) {
+      console.log("The error for Blog Container ", error);
+    }
   };
 
   return (

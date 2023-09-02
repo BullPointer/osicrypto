@@ -14,6 +14,8 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
+import BlogContainer from "./components/Blogs/BlogContainer";
+import BlogListing from "./components/Blogs/BlogListing";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -30,20 +32,26 @@ const App = () => {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path="osicrypto" element={<Home />} />
-        <Route path="/osicrypto/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="osicrypto/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="osicrypto/faq" element={<FaQ />} />
-        <Route path="osicrypto/sign-in" element={<Signin />} />
-        <Route path="osicrypto/create-account" element={<Signup />} />
-        <Route path="osicrypto/blog" element={<Blog />} />
-        <Route path="osicrypto/how-it-works" element={<HowItWorks />} />
-        <Route path="osicrypto/help" element={<HelpCenter />} />
-        <Route path="osicrypto/support" element={<Support />} />
-        <Route path="osicrypto/exchange" element={<AddExchangeDetails />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route
+          path="terms-and-conditions"
+          element={<TermsAndConditions />}
+        />
+        <Route path="faq" element={<FaQ />} />
+        <Route path="sign-in" element={<Signin />} />
+        <Route path="create-account" element={<Signup />} />
+        <Route path="blog" element={<Blog />}>
+          <Route path="" element={<BlogListing />} />
+          <Route path="category/:path" element={<BlogListing />} />
+          <Route path=":id" element={<BlogContainer />} />
+        </Route>
+        <Route path="how-it-works" element={<HowItWorks />} />
+        <Route path="help" element={<HelpCenter />} />
+        <Route path="support" element={<Support />} />
+        <Route path="exchange" element={<AddExchangeDetails />} />
 
         <Route
-          path="/osicrypto/exchange/x"
+          path="/exchange/x"
           element={
             <ProtectedRoutes>
               <MakeExchange />
