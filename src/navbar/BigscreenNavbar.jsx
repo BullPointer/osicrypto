@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -22,6 +22,7 @@ const account = [
 ];
 
 const BigscreenNavbar = () => {
+  const ref = useRef();
   const [showList, setShowList] = useState({ key: null });
 
   const handleShowList = (key) => {
@@ -31,9 +32,17 @@ const BigscreenNavbar = () => {
       ? setShowList({ ...showList, key: null })
       : setShowList({ ...showList, key });
   };
+  useEffect(() => {
+    const div = ref.current;
+    const checkBox = ({ target }) =>
+      !div.contains(target) && setShowList(false);
+
+    document.addEventListener("click", checkBox);
+    return () => document.removeEventListener("click", checkBox);
+  }, []);
   return (
-    <nav className="">
-      <ul className="hidden lg:flex flex-row">
+    <nav ref={ref} className="">
+      <ul className="hidden lg:flex flex-row ">
         <li className="relative">
           <div
             onClick={() => handleShowList("support")}

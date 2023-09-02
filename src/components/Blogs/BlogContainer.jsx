@@ -25,7 +25,7 @@ const BlogContainer = () => {
   }, [id]);
 
   return (
-    <div className="prose py-5 bg-white h-auto rounded-md p-5 mt-10 min-w-full">
+    <div className="prose py-5 bg-white h-auto rounded-md p-5 mt-10 max-w-full">
       {parser(String(blog?.notes))}
     </div>
   );
