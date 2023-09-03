@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
 import { shortenSubtopic, shortenTopic } from "../../utils/shortenText";
-import { BlogFunc, DoubleBlogFunc } from "../BlogFunc";
-import Trending from "../Trending";
+import { BlogFunc, DoubleBlogFunc } from "./BlogFunc";
+import Trending from "./Trending";
 import { useBlogContext } from "../../context/BlogContext";
 import { useParams } from "react-router-dom";
 

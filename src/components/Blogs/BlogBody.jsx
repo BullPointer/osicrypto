@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import CurrenciesCard from "../CurrenciesCard";
-import TopStories from "../TopStories";
-import WorkCard from "../WorkCard";
-import Exchange from "../Exchange";
+import TopStories from "./TopStories";
+import WorkCard from "./WorkCard";
+import Exchange from "./Exchange";
 import { Outlet } from "react-router-dom";
 
 const BlogBody = () => {

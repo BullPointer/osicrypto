@@ -2,6 +2,13 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const handleScrollTo = () =>
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
   return (
     <>
       {/* <!-- start of footer --> */}
@@ -31,12 +38,10 @@ function Footer() {
           <h3 className="mb-2">Company</h3>
           <ul>
             <li>
-              <Link to="/osicrypto/terms-and-conditions">
-                Terms & Conditions
-              </Link>
+              <Link onClick={handleScrollTo} to="/terms-and-conditions">Terms & Conditions</Link>
             </li>
             <li>
-              <Link to="/osicrypto/privacy-policy">Privacy policy</Link>
+              <Link onClick={handleScrollTo} to="/privacy-policy">Privacy policy</Link>
             </li>
           </ul>
         </div>

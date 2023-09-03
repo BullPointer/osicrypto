@@ -12,8 +12,8 @@ import MakeExchange from "./components/MakeExchange";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import TermsAndConditions from "./components/TermsAndConditions";
+import PrivacyPolicy from "./components/Documents/PrivacyPolicy";
+import TermsAndConditions from "./components/Documents/TermsAndConditions";
 import BlogContainer from "./components/Blogs/BlogContainer";
 import BlogListing from "./components/Blogs/BlogListing";
 

@@ -12,7 +12,7 @@ const Signin = () => {
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const redirectPath = location.state?.path || "/osicrypto";
+  const redirectPath = location.state?.path || "/";
 
   const schema = Joi.object({
     password: Joi.string()
@@ -64,7 +64,7 @@ const Signin = () => {
     <div className="relative w-full min-h-screen flex flex-row justify-center items-center">
       <div className="absolute top-0 left-0 right-0 lg:sticky w-full lg:w-[40%] h-screen">
         <div className="flex flex-col justify-center items-start px-3 py-5 lg:px-5 w-[100%] mx-auto">
-          <Link to={"/osicrypto"}>
+          <Link to={"/"}>
             <div className="bg-[#122aff] py-1 px-3 rounded-md text-[12px] font-bold text-white">
               HOME
             </div>
@@ -108,7 +108,7 @@ const Signin = () => {
                   <div className="w-3 h-3 border-b-2 border-b-white animate-spin rounded-full" />
                 )}
               </button>
-              <Link to={"/osicrypto/create-account"}>
+              <Link to={"/create-account"}>
                 <div className="bg-[#ff4b12] opacity-80 text-white py-1 px-4 rounded-lg font-bold text-[12px]">
                   SIGN UP
                 </div>
@@ -120,8 +120,13 @@ const Signin = () => {
           </div>
           <div className="w-[80%] mx-auto text-white text-[10px] pb-4">
             By continuing, I agree with your
-            <span className="text-red-400">Terms and Conditions</span> and{" "}
-            <span className="text-red-400">Privacy Policies</span>
+            <Link to={"/terms-and-conditions"} className="text-red-400">
+              Terms and Conditions
+            </Link>{" "}
+            and{" "}
+            <Link to={"/privacy-policy"} className="text-red-400">
+              Privacy Policies
+            </Link>
           </div>
         </form>
       </div>

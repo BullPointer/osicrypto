@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import BlogBody from "../components/BlogBody";
-import BlogHeader from "../components/BlogHeader";
+import BlogBody from "../components/Blogs/BlogBody";
+import BlogHeader from "../components/Blogs/BlogHeader";
 import { useHomeContext } from "../context/HomeContext";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import Img1 from "../assets/Testimonials/testimonial1.jpeg";
-import Img2 from "../assets/Testimonials/testimonial2.jpg";
-import Img3 from "../assets/Testimonials/testimonial3.jpeg";
+import Img1 from "../../assets/Testimonials/testimonial1.jpeg";
+import Img2 from "../../assets/Testimonials/testimonial2.jpg";
+import Img3 from "../../assets/Testimonials/testimonial3.jpeg";
 
 const testimonialData = [
   {

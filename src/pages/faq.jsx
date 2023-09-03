@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
-import Faqtext from "../components/faqtext";
+import Faqtext from "../components/FaQs/faqtext";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
 import { getFaqsObject } from "./object";

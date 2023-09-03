@@ -1,7 +1,7 @@
 import parser from "html-react-parser";
 import Navbar from "../../navbar/Navbar";
 import Footer from "../../footer/footer";
-import LegalSidebar from "../../pages/LegalSidebar";
+import LegalSidebar from "./LegalSidebar";
 import { useEffect, useRef, useState } from "react";
 import { getTermAndCondition } from "../../handleApi/documentApi";
 

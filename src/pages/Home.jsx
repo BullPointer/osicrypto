@@ -1,4 +1,4 @@
-import Testimonials from "../components/Testimonials";
+import Testimonials from "../components/Documents/Testimonials";
 import ExchangeCurrency from "../components/startCurrencyX";
 import StartTutorial from "../components/startTutorial";
 import Footer from "../footer/footer";
