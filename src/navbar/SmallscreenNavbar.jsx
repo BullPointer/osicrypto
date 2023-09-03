@@ -11,10 +11,13 @@ const supportData = [
   { link: "faq", text: "FAQ" },
 ];
 const currencies = [
-  { link: "btc-to-eth", text: "Btc to Eth" },
-  { link: "lth-to-eth", text: "Lth to Eth" },
-  { link: "doge-to-lth", text: "Doge to Lth" },
-  { link: "eth-to-xmr", text: "Eth to Xmr" },
+  { text: "Bitcoin", symbol: "btc" },
+  { text: "Ethereum", symbol: "eth" },
+  { text: "Dogecoin", symbol: "doge" },
+  { text: "Monero", symbol: "xmr" },
+  { text: "Litecoin", symbol: "ltc" },
+  { text: "XRP", symbol: "xrp" },
+  { text: "USDC Coin Ethereum", symbol: "usdc" },
 ];
 
 const account = [
@@ -22,9 +25,9 @@ const account = [
   { link: "create-account", text: "Create Account" },
 ];
 
-function SmallscreenNavbar({ setBtnState }) {
+function SmallscreenNavbar({ setBtnState, handleCurrency }) {
   const [showList, setShowList] = useState({ key: null });
-  
+
   const handleShowList = (key) => {
     // toogle select list
 
@@ -47,7 +50,10 @@ function SmallscreenNavbar({ setBtnState }) {
             <div className="">
               {supportData.map(({ link, text }, index) => (
                 <Link key={index} to={`/${link}`}>
-                  <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
+                  <div
+                    onClick={() => setBtnState(false)}
+                    className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                  >
                     {text}
                   </div>
                 </Link>
@@ -65,10 +71,17 @@ function SmallscreenNavbar({ setBtnState }) {
           </div>
           {showList.key == "currencies" && (
             <div className="">
-              {currencies.map(({ link, text }, index) => (
-                <Link key={index} to={`/${link}`}>
-                  <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
-                    {text}
+              {currencies.map(({ text, symbol }, index) => (
+                <Link
+                  onClick={() => handleCurrency(symbol)}
+                  key={index}
+                  to={`/exchange/${text.toLowerCase()}`}
+                >
+                  <div
+                    onClick={() => setBtnState(false)}
+                    className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                  >
+                    {text.toUpperCase()}
                   </div>
                 </Link>
               ))}
@@ -87,7 +100,10 @@ function SmallscreenNavbar({ setBtnState }) {
             <div className="">
               {account.map(({ link, text }, index) => (
                 <Link key={index} to={`/${link}`}>
-                  <div onClick={() => setBtnState(false)} className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
+                  <div
+                    onClick={() => setBtnState(false)}
+                    className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                  >
                     {text}
                   </div>
                 </Link>
@@ -95,7 +111,10 @@ function SmallscreenNavbar({ setBtnState }) {
             </div>
           )}
         </li>
-        <li onClick={() => setBtnState(false)} className="bg-black-500 cursor-pointer w-full p-2 text-[22px] text-white font-[600]">
+        <li
+          onClick={() => setBtnState(false)}
+          className="bg-black-500 cursor-pointer w-full p-2 text-[22px] text-white font-[600]"
+        >
           <NavLink to="/blog">Blog</NavLink>
         </li>
       </ul>

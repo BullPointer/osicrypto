@@ -4,10 +4,30 @@ import BigscreenNavbar from "./BigscreenNavbar";
 import SmallscreenNavbar from "./SmallscreenNavbar";
 import { Link } from "react-router-dom";
 import { useHomeContext } from "../context/HomeContext";
+import { getCurrency } from "../handleApi/currencyApi";
+import { useExchangeContext } from "../context/ExchangeContext";
 
 function Navbar() {
   const [btnState, setBtnState] = useState(false);
   const { handleBgColor } = useHomeContext();
+  const { receive, setReceive } = useExchangeContext();
+
+  const handleCurrency = async (symbol) => {
+    const link = "https://api.simpleswap.io/get_currency";
+    try {
+      const res = await getCurrency(link, symbol);
+      if (res.status === 200) {
+        setReceive({
+          ...receive,
+          name: res.data.name,
+          symbol: symbol.toLowerCase(),
+          image: res.data.image,
+        });
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
   // end of responsive navigation bar
   return (
@@ -43,8 +63,13 @@ function Navbar() {
             )}
           </div>
         </h2>
-        <BigscreenNavbar />
-        {btnState && <SmallscreenNavbar setBtnState={setBtnState} />}
+        <BigscreenNavbar handleCurrency={handleCurrency} />
+        {btnState && (
+          <SmallscreenNavbar
+            setBtnState={setBtnState}
+            handleCurrency={handleCurrency}
+          />
+        )}
         <Icon
           onClick={handleBgColor}
           icon="icon-park-solid:dark-mode"

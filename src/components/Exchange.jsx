@@ -4,6 +4,7 @@ import { useSideExchangeContext } from "../context/SideExchangeContext";
 import Transaction from "./Transaction";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { useExchangeContext } from "../context/ExchangeContext";
+import { cryptoToCrypto, fiatToCrypto } from "./utils/ExchangeTypeSetter";
 
 const commonStyle = "flex flex-row justify-center items-center";
 
@@ -55,7 +56,7 @@ const Exchange = () => {
         image: receive.image,
       });
       navigate({
-        pathname: "/osicrypto/exchange",
+        pathname: "/exchange",
         search: createSearchParams({
           from: send.symbol.toLowerCase(),
           to: receive.symbol.toLowerCase(),
@@ -72,7 +73,10 @@ const Exchange = () => {
     <div className="h-auto left-10 w-[90%] mx-auto bg-white  shadow-lg rounded-lg border">
       <div className={`${commonStyle} border-b`}>
         <div
-          onClick={() => setExchangeType("crypto-to-crypto")}
+          onClick={() => {
+            setExchangeType("crypto-to-crypto");
+            cryptoToCrypto(send, setSend, receive, setReceive);
+          }}
           className={`${exchangeStyle} ${
             exchangeType === "crypto-to-crypto" ? "bg-[#eeeeee]" : ""
           }`}
@@ -80,7 +84,10 @@ const Exchange = () => {
           Exchange Crypto
         </div>
         <div
-          onClick={() => setExchangeType("fiat-to-crypto")}
+          onClick={() => {
+            setExchangeType("fiat-to-crypto")
+            fiatToCrypto(send, setSend, receive, setReceive);
+          }}
           className={`${exchangeStyle} ${
             exchangeType === "fiat-to-crypto" ? "bg-[#eeeeee]" : ""
           } `}

@@ -7,10 +7,18 @@ import { useHomeExchangeContext } from "../context/HomeExchangeContext";
 import { useExchangeContext } from "../context/ExchangeContext";
 import { useEffect } from "react";
 import { userIdentifierApi, visitorsApi } from "../handleApi/api";
+import { cryptoToCrypto, fiatToCrypto } from "./utils/ExchangeTypeSetter";
 
 const ExchangeCurrency = () => {
-  const { send, receive, error, exchangeType, setExchangeType } =
-    useHomeExchangeContext();
+  const {
+    send,
+    receive,
+    setSend,
+    setReceive,
+    error,
+    exchangeType,
+    setExchangeType,
+  } = useHomeExchangeContext();
   const {
     setSend: setSendX,
     send: sendX,
@@ -37,7 +45,7 @@ const ExchangeCurrency = () => {
         image: receive.image,
       });
       navigate({
-        pathname: "/osicrypto/exchange",
+        pathname: "/exchange",
         search: createSearchParams({
           from: send.symbol.toLowerCase(),
           to: receive.symbol.toLowerCase(),
@@ -92,7 +100,10 @@ const ExchangeCurrency = () => {
       <div className="exchange-container ">
         <div className={`${commonStyle} w-full mb-5`}>
           <div
-            onClick={() => setExchangeType("crypto-to-crypto")}
+            onClick={() => {
+              setExchangeType("crypto-to-crypto");
+              cryptoToCrypto(send, setSend, receive, setReceive);
+            }}
             className={`${exchangeStyle} text-[#202020] ${
               exchangeType === "crypto-to-crypto" ? "bg-[#eeeeee]" : ""
             } rounded-tr-xl `}
@@ -100,7 +111,10 @@ const ExchangeCurrency = () => {
             Exchange Crypto
           </div>
           <div
-            onClick={() => setExchangeType("fiat-to-crypto")}
+            onClick={() => {
+              setExchangeType("fiat-to-crypto");
+              fiatToCrypto(send, setSend, receive, setReceive);
+            }}
             className={`${exchangeStyle} text-[#202020] ${
               exchangeType === "fiat-to-crypto" ? "bg-[#eeeeee]" : ""
             }  rounded-bl-xl `}

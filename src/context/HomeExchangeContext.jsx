@@ -167,6 +167,8 @@ export const HomeExchangeContext = ({ children }) => {
         error,
         send,
         receive,
+        setSend,
+        setReceive,
         getAllCurrencies,
         getEstimatedAmounts,
         handleCurrency,

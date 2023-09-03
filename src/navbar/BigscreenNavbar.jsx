@@ -10,10 +10,13 @@ const supportData = [
   { link: "faq", text: "FAQ" },
 ];
 const currencies = [
-  { link: "btc-to-eth", text: "Btc to Eth" },
-  { link: "lth-to-eth", text: "Lth to Eth" },
-  { link: "doge-to-lth", text: "Doge to Lth" },
-  { link: "eth-to-xmr", text: "Eth to Xmr" },
+  { text: "Bitcoin", symbol: "btc" },
+  { text: "Ethereum", symbol: "eth" },
+  { text: "Dogecoin", symbol: "doge" },
+  { text: "Monero", symbol: "xmr" },
+  { text: "Litecoin", symbol: "ltc" },
+  { text: "XRP", symbol: "xrp" },
+  { text: "USDC Coin Ethereum", symbol: "usdc" },
 ];
 
 const account = [
@@ -21,7 +24,7 @@ const account = [
   { link: "create-account", text: "Create Account" },
 ];
 
-const BigscreenNavbar = () => {
+const BigscreenNavbar = ({ handleCurrency }) => {
   const ref = useRef();
   const [showList, setShowList] = useState({ key: null });
 
@@ -81,12 +84,16 @@ const BigscreenNavbar = () => {
           {showList.key == "currencies" && (
             <div
               onClick={() => setShowList({ ...showList, key: null })}
-              className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]"
+              className="z-10 absolute bg-black w-[200px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%] -left-[20%]"
             >
-              {currencies.map(({ link, text }, index) => (
-                <Link key={index} to={`/${link}`}>
+              {currencies.map(({ text, symbol }, index) => (
+                <Link
+                  onClick={() => handleCurrency(symbol)}
+                  key={index}
+                  to={`/exchange/${text.toLowerCase()}`}
+                >
                   <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
-                    {text}
+                    {text.toUpperCase()}
                   </div>
                 </Link>
               ))}

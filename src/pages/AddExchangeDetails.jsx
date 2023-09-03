@@ -7,6 +7,10 @@ import { useState } from "react";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
+import {
+  cryptoToCrypto,
+  fiatToCrypto,
+} from "../components/utils/ExchangeTypeSetter";
 
 const AddExchangeDetails = () => {
   const navigate = useNavigate();
@@ -36,6 +40,7 @@ const AddExchangeDetails = () => {
     handleSelectedCurrency,
     handleSearch,
   } = useExchangeContext();
+
   const handleExchange = async () => {
     const link = "https://api.simpleswap.io/create_exchange";
     const preAddressRegex = /^[0-9a-zA-Z]{25,}$/;
@@ -62,7 +67,7 @@ const AddExchangeDetails = () => {
           window.open(data.redirect_url, "_blank");
         } else {
           navigate({
-            pathname: "/osicrypto/exchange/x",
+            pathname: "/exchange/x",
             search: createSearchParams({ id: data.id }).toString(),
           });
         }
@@ -98,15 +103,21 @@ const AddExchangeDetails = () => {
           <div className="h-auto left-10 w-[90%] mx-auto bg-white  shadow-lg rounded-lg border">
             <div className={`${commonStyle} border-b`}>
               <div
-                onClick={() => setExchangeType("crypto-to-crypto")}
+                onClick={() => {
+                  setExchangeType("crypto-to-crypto");
+                  cryptoToCrypto(send, setSend, receive, setReceive);
+                }}
                 className={`${exchangeStyle} ${
                   exchangeType === "crypto-to-crypto" ? "bg-[#eeeeee]" : ""
                 }`}
               >
-                Exchange Crypto
+                Exchange Cryptoss
               </div>
               <div
-                onClick={() => setExchangeType("fiat-to-crypto")}
+                onClick={() => {
+                  setExchangeType("fiat-to-crypto");
+                  fiatToCrypto(send, setSend, receive, setReceive);
+                }}
                 className={`${exchangeStyle} ${
                   exchangeType === "fiat-to-crypto" ? "bg-[#eeeeee]" : ""
                 } `}
@@ -194,15 +205,12 @@ const AddExchangeDetails = () => {
             <p className="text-black p-2 text-[10px] sm:text-sm">
               By clicking <span className="text-blue-600"> Exchange</span>, I
               agree to the{" "}
-              <Link className="text-red-400" to={"/osicrypto/privacy-policy"}>
+              <Link className="text-red-400" to={"/privacy-policy"}>
                 {" "}
                 Privacy Policy{" "}
               </Link>{" "}
               and{" "}
-              <Link
-                className="text-red-400"
-                to={"/osicrypto/terms-and-conditions"}
-              >
+              <Link className="text-red-400" to={"/terms-and-conditions"}>
                 Terms of Service.
               </Link>
             </p>
