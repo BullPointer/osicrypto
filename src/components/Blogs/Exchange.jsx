@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Icon } from "@iconify/react";
-import { useSideExchangeContext } from "../context/SideExchangeContext";
-import Transaction from "./Transaction";
+import { useSideExchangeContext } from "../../context/SideExchangeContext";
+import Transaction from "../Transaction";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { useExchangeContext } from "../context/ExchangeContext";
-import { cryptoToCrypto, fiatToCrypto } from "./utils/ExchangeTypeSetter";
+import { useExchangeContext } from "../../context/ExchangeContext";
+import { cryptoToCrypto, fiatToCrypto } from "../utils/ExchangeTypeSetter";
 
 const commonStyle = "flex flex-row justify-center items-center";
 

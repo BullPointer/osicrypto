@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import { useBlogContext } from "../context/BlogContext";
+import { useBlogContext } from "../../context/BlogContext";
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */

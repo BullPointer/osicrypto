@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllBlog } from "../handleApi/documentApi";
+import { getAllBlog } from "../../handleApi/documentApi";
 import { Link } from "react-router-dom";
 
 const TopStories = () => {
