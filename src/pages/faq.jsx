@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactGa from "react-ga";
 import { useHomeContext } from "../context/HomeContext";
 import Faqtext from "../components/FaQs/faqtext";
 import Footer from "../footer/footer";
@@ -9,7 +10,11 @@ function FaQ() {
   // start of responsive faq drop down
   const [faq, setFaq] = useState({});
   const [clickedIndex, setClickedIndex] = useState(null);
-
+  const measurementId = import.meta.env.VITE_TAWKTO_GOOGLE_ANALYTICS_ID;
+  ReactGa.initialize(measurementId);
+  useEffect(() => {
+    ReactGa.pageview(window.location.pathname + window.location.search);
+  }, []);
   useEffect(() => {
     getFaqsObject(setFaq);
   }, []);

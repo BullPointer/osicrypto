@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import TawkMessengerReact from "@tawk.to/tawk-messenger-react";
 import ReactGa from "react-ga";
 import Testimonials from "../components/Documents/Testimonials";
@@ -10,9 +11,11 @@ import { useEffect } from "react";
 const Home = () => {
   const measurementId = import.meta.env.VITE_TAWKTO_GOOGLE_ANALYTICS_ID;
   ReactGa.initialize(measurementId);
+  
   useEffect(() => {
     ReactGa.pageview(window.location.pathname + window.location.search);
   }, []);
+  
   return (
     <>
       <Navbar />
