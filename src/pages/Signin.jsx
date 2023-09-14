@@ -50,11 +50,12 @@ const Signin = () => {
           data: response.data.token,
         };
 
-        sessionStorage.setItem("token", JSON.stringify(dataToStore));
+        localStorage.setItem("token", JSON.stringify(dataToStore));
         setIsLoading(false);
         navigate(redirectPath, { replace: true });
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     }
     setError(error);
@@ -95,7 +96,7 @@ const Signin = () => {
               handleChange={handleChange}
               label={"Password"}
               name={"password"}
-              type={"text"}
+              type={"password"}
               error={error}
             />
           </div>

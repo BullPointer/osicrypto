@@ -3,8 +3,8 @@ import Home from "./pages/Home";
 import FaQ from "./pages/faq";
 import Blog from "./pages/Blog";
 import HowItWorks from "./pages/HowItWorks";
-import HelpCenter from "./pages/HelpCenter";
-import Support from "./pages/Support";
+import HelpCenter from "./components/Documents/HelpCenter";
+import Support from "./components/Documents/Support";
 import NotFound from "./pages/NoFound";
 import { useEffect } from "react";
 import AddExchangeDetails from "./pages/AddExchangeDetails";
@@ -16,6 +16,9 @@ import PrivacyPolicy from "./components/Documents/PrivacyPolicy";
 import TermsAndConditions from "./components/Documents/TermsAndConditions";
 import BlogContainer from "./components/Blogs/BlogContainer";
 import BlogListing from "./components/Blogs/BlogListing";
+import CreateSupport from "./components/Documents/CreateSupport";
+import SeeSupport from "./components/Documents/SeeSupport";
+import { RequireAuth } from "./utils/RequireAuth";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -29,6 +32,7 @@ const App = () => {
 
   return (
     <>
+      <RequireAuth />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
@@ -44,7 +48,30 @@ const App = () => {
         </Route>
         <Route path="how-it-works" element={<HowItWorks />} />
         <Route path="help" element={<HelpCenter />} />
-        <Route path="support" element={<Support />} />
+        <Route
+          path="support"
+          element={
+            <RequireAuth>
+              <Support />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="support/:id"
+          element={
+            <RequireAuth>
+              <SeeSupport />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="support/create"
+          element={
+            <RequireAuth>
+              <CreateSupport />
+            </RequireAuth>
+          }
+        />
         <Route path="exchange" element={<AddExchangeDetails />} />
         <Route path="exchange/:currency" element={<AddExchangeDetails />} />
 

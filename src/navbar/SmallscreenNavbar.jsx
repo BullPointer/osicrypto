@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 const supportData = [
   { link: "how-it-works", text: "How It Works" },
   { link: "help", text: "Help Center" },
-  { link: "support", text: "Contact Support" },
+  { link: "support", text: "Support Request" },
   { link: "faq", text: "FAQ" },
 ];
 const currencies = [

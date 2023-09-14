@@ -66,10 +66,11 @@ const Signup = () => {
           data: response.data.token,
         };
 
-        sessionStorage.setItem("token", JSON.stringify(dataToStore));
+        localStorage.setItem("token", JSON.stringify(dataToStore));
         setIsLoading(false);
         navigate(redirectPath, { replace: true });
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       }
     }
@@ -120,7 +121,7 @@ const Signup = () => {
               handleChange={handleChange}
               label={"Password"}
               name={"password"}
-              type={"text"}
+              type={"password"}
               error={error}
             />
           </div>

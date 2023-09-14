@@ -1,7 +1,7 @@
-import Footer from "../footer/footer";
-import Navbar from "../navbar/Navbar";
+import Footer from "../../footer/footer";
+import Navbar from "../../navbar/Navbar";
 
-const Support = () => {
+const HelpCenter = () => {
   return (
     <>
       <Navbar />
@@ -13,4 +13,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default HelpCenter;
