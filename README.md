@@ -1,2 +1,2 @@
-# SwapMute_Dev
-Crypto Exchange project with ReactJs
+# Osicrypto
+Crypto Exchange MERN-Stack project with ReactJs, NodeJs, Express, MongoDB
