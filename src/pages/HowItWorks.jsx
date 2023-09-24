@@ -6,7 +6,7 @@ const HowItWorks = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center w-full h-screen">
-        <div className="text-white text-4xl">Coming Soon!</div>
+        <div className="text-white text-4xl">Coming very Soon!</div>
       </div>
       <Footer />
     </>
