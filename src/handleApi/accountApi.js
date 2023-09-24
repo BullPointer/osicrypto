@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const signupApi = (cred) => {
-  const link = "http://localhost:3000/users/signup";
+  const link = "https://osicrypto-backend.onrender.com/users/signup";
+  // const link = "http://localhost:3000/users/signup";
   const data = {
     username: cred.fullname,
     email: cred.email,
@@ -20,7 +21,8 @@ export const signupApi = (cred) => {
 };
 
 export const loginApi = (cred) => {
-  const link = "http://localhost:3000/users/login";
+  const link = "https://osicrypto-backend.onrender.com/users/login";
+  // const link = "http://localhost:3000/users/login";
 
   const data = {
     email: cred.email,

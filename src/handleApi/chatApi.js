@@ -25,10 +25,15 @@ export const createChatApi = async (cred, id) => {
   };
 
   const response = await axios.patch(
-    `http://localhost:3000/api/supports/make-chat/${id}`,
+    `https://osicrypto-backend.onrender.com/api/supports/make-chat/${id}`,
     formData,
     config
   );
+  // const response = await axios.patch(
+  //   `http://localhost:3000/api/supports/make-chat/${id}`,
+  //   formData,
+  //   config
+  // );
 
   return response;
 };

@@ -9,9 +9,13 @@ export const getSupportsApi = async () => {
     },
   };
   const response = await axios.get(
-    "http://localhost:3000/api/supports",
+    "https://osicrypto-backend.onrender.com/api/supports",
     config
   );
+  // const response = await axios.get(
+  //   "http://localhost:3000/api/supports",
+  //   config
+  // );
   return response;
 };
 export const getSupportByIdApi = async (id) => {
@@ -22,9 +26,13 @@ export const getSupportByIdApi = async (id) => {
     },
   };
   const response = await axios.get(
-    `http://localhost:3000/api/supports/${id}`,
+    `https://osicrypto-backend.onrender.com/api/supports/${id}`,
     config
   );
+  // const response = await axios.get(
+  //   `http://localhost:3000/api/supports/${id}`,
+  //   config
+  // );
   return response;
 };
 const storedData = localStorage.getItem("token");
@@ -53,10 +61,15 @@ export const createSupportApi = async (cred) => {
   };
 
   const response = await axios.post(
-    "http://localhost:3000/api/supports",
+    "https://osicrypto-backend.onrender.com/api/supports",
     formData,
     config
   );
+  // const response = await axios.post(
+  //   "http://localhost:3000/api/supports",
+  //   formData,
+  //   config
+  // );
 
   return response;
 };
@@ -70,8 +83,12 @@ export const deleteSupportByIdApi = async (id) => {
   };
 
   const response = await axios.delete(
-    `http://localhost:3000/api/supports/${id}`,
+    `https://osicrypto-backend.onrender.com/api/supports/${id}`,
     config
   );
+  // const response = await axios.delete(
+  //   `http://localhost:3000/api/supports/${id}`,
+  //   config
+  // );
   return response;
 };
