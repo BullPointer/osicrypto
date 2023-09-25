@@ -11,6 +11,7 @@ import ConfirmDelete from "../utils/ConfirmDelete";
 import MessagePopup from "../utils/MessagePopup";
 
 const Support = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [support, setSupport] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [confirm, setConfirm] = useState({ id: null, confirm: false });
@@ -21,6 +22,7 @@ const Support = () => {
         const { data } = await getSupportsApi();
         console.log(data.data);
         setSupport(data.data);
+        setIsLoading(false);
       } catch (error) {
         console.log("New Error is ", error.response);
       }
@@ -93,7 +95,11 @@ const Support = () => {
               </div>
             ))}
           </div>
-          {support.length > 0 ? (
+          {isLoading ? (
+            <div className="py-10 w-full flex flex-col justify-center items-center bg-[#fff] shadow-md shadow-black">
+              <Icon className="text-[100px]" icon="eos-icons:bubble-loading" />
+            </div>
+          ) : support.length > 0 ? (
             <div>
               {support?.map(
                 (
