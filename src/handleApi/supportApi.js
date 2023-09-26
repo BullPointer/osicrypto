@@ -82,13 +82,13 @@ export const deleteSupportByIdApi = async (id) => {
     },
   };
 
-  // const response = await axios.delete(
-  //   `https://osicrypto-backend.onrender.com/api/supports/${id}`,
-  //   config
-  // );
   const response = await axios.delete(
-    `http://localhost:3000/api/supports/${id}`,
+    `https://osicrypto-backend.onrender.com/api/supports/${id}`,
     config
   );
+  // const response = await axios.delete(
+  //   `http://localhost:3000/api/supports/${id}`,
+  //   config
+  // );
   return response;
 };
