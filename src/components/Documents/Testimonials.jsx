@@ -77,23 +77,23 @@ const Testimonials = () => {
               </div>
               <div className="flex flex-row justify-center items-center gap-2 text-white">
                 <Icon
-                  className="text-green-500 text-[18px]"
+                  className="text-[#ff4b12] text-[18px]"
                   icon="fluent:star-24-filled"
                 />
                 <Icon
-                  className="text-green-500 text-[18px]"
+                  className="text-[#ff4b12] text-[18px]"
                   icon="fluent:star-24-filled"
                 />
                 <Icon
-                  className="text-green-500 text-[18px]"
+                  className="text-[#ff4b12] text-[18px]"
                   icon="fluent:star-24-filled"
                 />
                 <Icon
-                  className="text-green-500 text-[18px]"
+                  className="text-[#ff4b12] text-[18px]"
                   icon="fluent:star-24-filled"
                 />
                 <Icon
-                  className="text-green-500 text-[18px]"
+                  className="text-[#ff4b12] text-[18px]"
                   icon="fluent:star-24-filled"
                 />
               </div>

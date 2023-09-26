@@ -38,10 +38,14 @@ function Footer() {
           <h3 className="mb-2">Company</h3>
           <ul>
             <li>
-              <Link onClick={handleScrollTo} to="/terms-and-conditions">Terms & Conditions</Link>
+              <Link onClick={handleScrollTo} to="/terms-and-conditions">
+                Terms & Conditions
+              </Link>
             </li>
             <li>
-              <Link onClick={handleScrollTo} to="/privacy-policy">Privacy policy</Link>
+              <Link onClick={handleScrollTo} to="/privacy-policy">
+                Privacy policy
+              </Link>
             </li>
           </ul>
         </div>

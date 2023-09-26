@@ -4,6 +4,7 @@ import Faqtext from "../components/FaQs/faqtext";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
 import { getFaqsObject } from "./object";
+import Slogan from "../components/Documents/Slogan";
 
 function FaQ() {
   // start of responsive faq drop down
@@ -203,6 +204,7 @@ function FaQ() {
       </div>
 
       {/* <!-- end of FAQ section --> */}
+      <Slogan />
       <Footer />
     </>
   );

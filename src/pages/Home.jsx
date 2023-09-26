@@ -5,10 +5,9 @@ import ExchangeCurrency from "../components/startCurrencyX";
 import StartTutorial from "../components/startTutorial";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
-
+import Slogan from "../components/Documents/Slogan";
 
 const Home = () => {
-  
   return (
     <>
       <Navbar />
@@ -18,6 +17,7 @@ const Home = () => {
         widgetId={import.meta.env.VITE_TAWKTO_WIDGET_ID}
       />
       <ExchangeCurrency />
+      <Slogan />
       <Testimonials />
       <Footer />
     </>
