@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Link, NavLink } from "react-router-dom";
+import { checkAuth } from "../utils/CheckAuth";
 
 const supportData = [
   { link: "how-it-works", text: "How It Works" },
@@ -25,7 +26,6 @@ const account = [
 ];
 
 const BigscreenNavbar = ({ handleCurrency }) => {
-  const token = localStorage.getItem("token");
   const ref = useRef();
   const [showList, setShowList] = useState({ key: null });
 
@@ -121,7 +121,7 @@ const BigscreenNavbar = ({ handleCurrency }) => {
               onClick={() => setShowList({ ...showList, key: null })}
               className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]"
             >
-              {!token ? (
+              {!checkAuth() ? (
                 account.map(({ link, text }, index) => (
                   <Link key={index} to={`/${link}`}>
                     <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">

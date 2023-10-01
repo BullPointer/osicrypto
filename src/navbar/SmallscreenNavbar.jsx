@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { Link, NavLink } from "react-router-dom";
+import { checkAuth } from "../utils/CheckAuth";
 
 const supportData = [
   { link: "how-it-works", text: "How It Works" },
@@ -105,7 +106,7 @@ const SmallscreenNavbar = ({ setBtnState, handleCurrency }) => {
           </div>
           {showList.key == "account" && (
             <div className="">
-              {!token ? (
+              {!checkAuth() ? (
                 account.map(({ link, text }, index) => (
                   <Link key={index} to={`/${link}`}>
                     <div
