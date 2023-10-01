@@ -111,7 +111,7 @@ const SeeSupport = () => {
             <div
               key={index}
               className={`flex flex-col justify-center items-start gap-4 w-[85%] sm:w-[70%] ${
-                fromAdmin ? "self-start bg-[#fff]" : "self-end bg-[#f0ecec]"
+                fromAdmin ? "self-start bg-[#fff;]" : "self-end bg-[#f0ecec]"
               } p-3 px-2 xs:px-5 shadow-md shadow-[#af8989] my-5 mx-1 sm:m-5 `}
             >
               <div className="w-[100%] flex flexl-row justify-between items-center gap-1 xs:gap-3">
