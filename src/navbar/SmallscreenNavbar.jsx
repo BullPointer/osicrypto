@@ -25,8 +25,15 @@ const account = [
   { link: "create-account", text: "Create Account" },
 ];
 
-function SmallscreenNavbar({ setBtnState, handleCurrency }) {
+const SmallscreenNavbar = ({ setBtnState, handleCurrency }) => {
+  const token = localStorage.getItem("token");
   const [showList, setShowList] = useState({ key: null });
+
+  const handleLogout = () => {
+    setBtnState(false);
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   const handleShowList = (key) => {
     // toogle select list
@@ -98,16 +105,25 @@ function SmallscreenNavbar({ setBtnState, handleCurrency }) {
           </div>
           {showList.key == "account" && (
             <div className="">
-              {account.map(({ link, text }, index) => (
-                <Link key={index} to={`/${link}`}>
-                  <div
-                    onClick={() => setBtnState(false)}
-                    className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
-                  >
-                    {text}
-                  </div>
-                </Link>
-              ))}
+              {!token ? (
+                account.map(({ link, text }, index) => (
+                  <Link key={index} to={`/${link}`}>
+                    <div
+                      onClick={() => setBtnState(false)}
+                      className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                    >
+                      {text}
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div
+                  onClick={() => handleLogout()}
+                  className="text-white p-1 mx-4 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                >
+                  Sign out
+                </div>
+              )}
             </div>
           )}
         </li>
@@ -120,6 +136,6 @@ function SmallscreenNavbar({ setBtnState, handleCurrency }) {
       </ul>
     </nav>
   );
-}
+};
 
 export default SmallscreenNavbar;

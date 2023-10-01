@@ -7,7 +7,7 @@ import { useHomeContext } from "../context/HomeContext";
 import { getCurrency } from "../handleApi/currencyApi";
 import { useExchangeContext } from "../context/ExchangeContext";
 
-function Navbar() {
+const Navbar = () => {
   const [btnState, setBtnState] = useState(false);
   const { handleBgColor } = useHomeContext();
   const { receive, setReceive } = useExchangeContext();
@@ -80,5 +80,5 @@ function Navbar() {
       {/* <!-- end of navigation --> */}
     </>
   );
-}
+};
 export default Navbar;

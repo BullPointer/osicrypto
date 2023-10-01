@@ -2,7 +2,7 @@
 
 const ReplySeeSupport = ({ imgName, handleChange, err }) => {
   return (
-    <div className="px-10">
+    <div className="px-4 sm:px-10">
       <div className="w-[100%] flex flex-col justify-start items-start py-2">
         <div className="w-full font-bold text-[12px] text-[#302d2d]">
           Response <span className="text-red-500">*</span>

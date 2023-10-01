@@ -25,8 +25,14 @@ const account = [
 ];
 
 const BigscreenNavbar = ({ handleCurrency }) => {
+  const token = localStorage.getItem("token");
   const ref = useRef();
   const [showList, setShowList] = useState({ key: null });
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   const handleShowList = (key) => {
     // toogle select list
@@ -115,13 +121,22 @@ const BigscreenNavbar = ({ handleCurrency }) => {
               onClick={() => setShowList({ ...showList, key: null })}
               className="z-10 absolute bg-black w-[150px] max-h-auto shadow-2xl shadow-black rounded border-t-4 border-red-600 top-[100%]"
             >
-              {account.map(({ link, text }, index) => (
-                <Link key={index} to={`/${link}`}>
-                  <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
-                    {text}
-                  </div>
-                </Link>
-              ))}
+              {!token ? (
+                account.map(({ link, text }, index) => (
+                  <Link key={index} to={`/${link}`}>
+                    <div className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]">
+                      {text}
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div
+                  onClick={handleLogout}
+                  className="text-white p-1 mb-2 cursor-pointer hover:font-bold hover:bg-white hover:text-[#000]"
+                >
+                  Sign out
+                </div>
+              )}
             </div>
           )}
         </li>

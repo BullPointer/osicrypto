@@ -64,14 +64,14 @@ const SeeSupport = () => {
   }, [sendMsg]);
 
   return (
-    <div className="min-h-screen p-10">
+    <div className="min-h-screen px-4 py-10 md:p-10">
       <div className="flex flex-row justify-between items-start">
-        <div className="flex flex-row justify-center items-center gap-2">
+        <div className="flex flex-row justify-center items-center sm:gap-2">
           <Icon
-            className="text-[#ceabab] font-bold text-[25px]"
+            className="text-[#ceabab] font-bold text-[22px] ss:text-[25px]"
             icon="material-symbols:contact-support-outline"
           />
-          <div className="text-[#d8d8d8] font-bold text-[18px]">
+          <div className="text-[#d8d8d8] font-bold text-[16px] ss:text-[18px]">
             Support Requests
           </div>
         </div>
@@ -83,17 +83,21 @@ const SeeSupport = () => {
         </Link>
       </div>
       <div className="w-[100%] md:w-[90%] lg:w-[70%] py-10 my-4 bg-[#fff] rounded-md">
-        <div className="flex flex-col sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-2 sm:gap-0 px-10 pb-2 sm:pb-0 border-b">
+        <div className="flex flex-col xs:flex-row justify-start items-start xs:justify-between sm:items-center gap-2 sm:gap-0 px-3 xs:px-10 pb-2 sm:pb-0 border-b">
           <div>
-            <div className="flex flex-row justify-start items-center gap-2">
-              <span className="font-bold text-[15px]">Ticket Subject:</span>
-              <span className="font-semibold font-sans text-[15px] text-[#191942]">
+            <div className="flex flex-row justify-start items-center ">
+              <span className="font-bold text-[10px] ss:text-[12px] sm:text-[15px] font-mono">
+                Ticket Subject:
+              </span>
+              <span className="font-semibold flex-1 font-serif text-[11px] ss:text-[12px] sm:text-[15px] text-[#08080899]">
                 {chats?.subject}
               </span>
             </div>
-            <div className="flex flex-row justify-start items-center gap-2">
-              <span className="font-bold text-[15px]">Ticket ID:</span>
-              <span className="font-semibold font-sans text-[15px] text-[#191942]">
+            <div className="flex flex-row justify-start items-center ">
+              <span className="font-bold text-[10px] ss:text-[12px] sm:text-[15px] font-mono">
+                Ticket ID:
+              </span>
+              <span className="font-semibold font-serif text-[11px] ss:text-[12px] sm:text-[15px] text-[#05040499]">
                 {chats?._id}
               </span>
             </div>
@@ -102,27 +106,29 @@ const SeeSupport = () => {
             {chats?.status}
           </div>
         </div>
-        <div className="h-screen overflow-y-scroll flex flex-col justify-start items-start py-4 bg-[#f5f4f4]">
+        <div className="h-screen overflow-auto flex flex-col justify-start items-start py-4 bg-[#f5f4f4]">
           {chats?.messages?.map(({ fromAdmin, msg, createdAt }, index) => (
             <div
               key={index}
-              className={`flex flex-col justify-center items-start gap-4 w-[70%] ${
+              className={`flex flex-col justify-center items-start gap-4 w-[85%] sm:w-[70%] ${
                 fromAdmin ? "self-start bg-[#fff]" : "self-end bg-[#f0ecec]"
-              } p-3 px-5 shadow-md shadow-[#af8989] m-5 `}
+              } p-3 px-2 xs:px-5 shadow-md shadow-[#af8989] my-5 mx-1 sm:m-5 `}
             >
-              <div className="w-[100%] flex flexl-row justify-between items-center gap-3">
+              <div className="w-[100%] flex flexl-row justify-between items-center gap-1 xs:gap-3">
                 <div className="flex flexl-row justify-start items-center gap-3">
                   <Icon
-                    className="text-[14px] md:text-[18px]"
+                    className="text-[10px] xs:text-[14px] md:text-[18px]"
                     icon="fluent-mdl2:date-time-12"
                   />
-                  <div className="text-[12px] font-semibold">{createdAt}</div>
+                  <div className="text-[9px] xs:text-[10px] sm:text-[12px] font-semibold">
+                    {createdAt}
+                  </div>
                 </div>
-                <div className="text-[12px] font-bold text-[#191942]">
+                <div className="text-[9px] xs:text-[10px] sm:text-[12px] font-bold text-[#191942]">
                   {fromAdmin ? "Admin Message" : "My Message"}
                 </div>
               </div>
-              <p className="text-[14px]">{msg}</p>
+              <p className="text-[10px] sm:text-[14px]">{msg}</p>
             </div>
           ))}
         </div>

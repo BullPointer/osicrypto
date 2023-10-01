@@ -18,7 +18,7 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const redirectPath = location.state?.path || "/osicrypto";
+  const redirectPath = location.state?.path || "/";
 
   const schema = Joi.object({
     password: Joi.string()
