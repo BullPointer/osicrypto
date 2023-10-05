@@ -29,7 +29,7 @@ export const BlogFunc = ({
       >
         <img
           className="w-[100%] h-[100%] object-cover bg-no-repeat absolute top-0 right-0 rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none"
-          src={`http://localhost:3000/${img}`}
+          src={`https://osicrypto-backend.onrender.com/${img}`}
           alt=""
         />
       </Link>
@@ -88,7 +88,7 @@ export const DoubleBlogFunc = ({
       >
         <img
           className="w-[100%] h-[100%] object-cover bg-no-repeat absolute top-0 right-0  rounded-tl-lg rounded-tr-lg "
-          src={`http://localhost:3000/${img}`}
+          src={`https://osicrypto-backend.onrender.com//${img}`}
           alt=""
         />
       </Link>
