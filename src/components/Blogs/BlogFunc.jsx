@@ -88,7 +88,7 @@ export const DoubleBlogFunc = ({
       >
         <img
           className="w-[100%] h-[100%] object-cover bg-no-repeat absolute top-0 right-0  rounded-tl-lg rounded-tr-lg "
-          src={`https://osicrypto-backend.onrender.com//${img}`}
+          src={`https://osicrypto-backend.onrender.com/${img}`}
           alt=""
         />
       </Link>
