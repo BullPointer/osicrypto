@@ -38,3 +38,54 @@ export const loginApi = (cred) => {
   const response = axios.post(link, data, config);
   return response;
 };
+
+export const requestResetPasswordApi = (user) => {
+  const link = `https://osicrypto-backend.onrender.com/users/password-reset/`;
+  // const link = `http://localhost:3000/users/password-reset/`;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const data = { email: user.email };
+
+  const response = axios.post(link, data, config);
+  return response;
+};
+
+export const setNewPasswordApi = (user, id, token) => {
+  const link = `https://osicrypto-backend.onrender.com/users/new-password`;
+  // const link = `http://localhost:3000/users/new-password`;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const data = {
+    password: user.password,
+    id: id,
+    token: token,
+  };
+
+  const response = axios.post(link, data, config);
+  return response;
+};
+
+export const verifyEmailApi = (id, token) => {
+  const link = `https://osicrypto-backend.onrender.com/users/user/${id}/verify/${token}`;
+  // const link = `http://localhost:3000/users/user/${id}/verify/${token}`;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = axios.get(link, config);
+  return response;
+};
+
+// soyekij621@gekme.com

@@ -76,6 +76,7 @@ const Signup = () => {
     }
 
     setError(error);
+    setIsLoading(false);
   };
 
   return (
@@ -140,17 +141,14 @@ const Signup = () => {
                 </div>
               </Link>
             </div>
-            <div className="text-sm text-red-500 cursor-pointer">
-              Forgot Your Password?
-            </div>
           </div>
           <div className="w-[80%] mx-auto text-white text-[10px] pb-4">
             By continuing, I agree with your
-            <Link to={"/terms-and-conditions"} className="text-red-400">
+            <Link to={"/terms-and-conditions"} className="text-red-400 mx-0.5">
               Terms and Conditions
             </Link>{" "}
             and{" "}
-            <Link to={"/privacy-policy"} className="text-red-400">
+            <Link to={"/privacy-policy"} className="text-red-400 mx-0.5">
               Privacy Policies
             </Link>
           </div>

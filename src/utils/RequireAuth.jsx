@@ -14,3 +14,14 @@ export const RequireAuth = ({ children }) => {
 
   return children;
 };
+
+export const RequireNotAuthenticated = ({ children }) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const expiredTimestamp = token?.exp;
+  const currentTimestamp = Math.floor(Date.now());
+
+  if (children && (!token || expiredTimestamp < currentTimestamp))
+    return children;
+
+  return (window.location.href = "/");
+};

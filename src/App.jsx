@@ -18,7 +18,10 @@ import BlogContainer from "./components/Blogs/BlogContainer";
 import BlogListing from "./components/Blogs/BlogListing";
 import CreateSupport from "./components/Documents/CreateSupport";
 import SeeSupport from "./components/Documents/SeeSupport";
-import { RequireAuth } from "./utils/RequireAuth";
+import { RequireAuth, RequireNotAuthenticated } from "./utils/RequireAuth";
+import VerifiedMail from "./components/Account/VerifiedMail";
+import ForgotPassword from "./components/Account/ForgotPassword";
+import ResetPassword from "./components/Account/ResetPassword";
 
 const App = () => {
   const handleScrollTo = () =>
@@ -39,8 +42,39 @@ const App = () => {
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="faq" element={<FaQ />} />
-        <Route path="sign-in" element={<Signin />} />
-        <Route path="create-account" element={<Signup />} />
+        <Route path="user" element={<VerifiedMail />} />
+        <Route
+          path="reset-password"
+          element={
+            <RequireNotAuthenticated>
+              <ResetPassword />
+            </RequireNotAuthenticated>
+          }
+        />
+        <Route
+          path="account/reset-password"
+          element={
+            <RequireNotAuthenticated>
+              <ForgotPassword />
+            </RequireNotAuthenticated>
+          }
+        />
+        <Route
+          path="sign-in"
+          element={
+            <RequireNotAuthenticated>
+              <Signin />
+            </RequireNotAuthenticated>
+          }
+        />
+        <Route
+          path="create-account"
+          element={
+            <RequireNotAuthenticated>
+              <Signup />
+            </RequireNotAuthenticated>
+          }
+        />
         <Route path="blog" element={<Blog />}>
           <Route path="" element={<BlogListing />} />
           <Route path="category/:path" element={<BlogListing />} />
