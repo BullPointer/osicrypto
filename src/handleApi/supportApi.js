@@ -50,8 +50,8 @@ export const createSupportApi = async (cred) => {
   formData.append("subject", cred.subject);
   formData.append("priority", cred.priority);
   formData.append("category", cred.category);
-  formData.append("message[fileImage]", cred.file, cred.file.name);
   formData.append("message[msg]", cred.message);
+  cred.file && formData.append("message[fileImage]", cred.file, cred.file.name);
 
   const config = {
     headers: {
