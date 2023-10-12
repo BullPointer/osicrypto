@@ -28,7 +28,7 @@ const App = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   useEffect(() => {
-    // 👇️ scroll to top on page load
+    // 👇️ scroll to top on page loaded
     window.addEventListener("load", handleScrollTo);
     return () => window.removeEventListener("load", handleScrollTo);
   }, []);
