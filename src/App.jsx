@@ -76,7 +76,7 @@ const App = () => {
           }
         />
         <Route path="blog" element={<Blog />}>
-          <Route path="" element={<BlogListing />} />
+          <Route index element={<BlogListing />} />
           <Route path="category/:path" element={<BlogListing />} />
           <Route path=":id" element={<BlogContainer />} />
         </Route>

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
+import parser from "html-react-parser";
 import { Link, useParams } from "react-router-dom";
 import { getSupportByIdApi } from "../../handleApi/supportApi";
 import ReplySeeSupport from "./ReplySeeSupport";
@@ -10,14 +11,14 @@ import { createChatApi } from "../../handleApi/chatApi";
 const SeeSupport = () => {
   const [imgName, setImgName] = useState("");
   const [err, setErr] = useState({});
-  const [reply, setReply] = useState({ response: "", file: "" });
+  const [editorValue, setEditorValue] = useState("");
+  const [reply, setReply] = useState({ file: "" });
   const [chats, setChats] = useState([]);
   const [sendMsg, setSendMsg] = useState("");
   const { id } = useParams("");
 
   const schema = Joi.object({
     file: Joi.any().allow("").optional(),
-    response: Joi.string().min(5),
   });
 
   const handleChange = ({ target }) => {
@@ -42,7 +43,7 @@ const SeeSupport = () => {
     } else {
       setErr({});
       try {
-        await createChatApi(reply, chats._id);
+        await createChatApi({ ...reply, response: editorValue }, chats._id);
         setSendMsg(reply.response);
       } catch (error) {
         console.log("New Error: ", error.response);
@@ -128,7 +129,7 @@ const SeeSupport = () => {
                   {fromAdmin ? "Admin Message" : "My Message"}
                 </div>
               </div>
-              <p className="text-[10px] sm:text-[14px]">{msg}</p>
+              <p className="text-[10px] sm:text-[14px]">{parser(msg)}</p>
             </div>
           ))}
         </div>
@@ -136,6 +137,8 @@ const SeeSupport = () => {
           imgName={imgName}
           handleChange={handleChange}
           err={err}
+          setValue={setEditorValue}
+          value={editorValue}
         />
         <div className="flex flex-row justify-center items-center gap-3 px-2 py-5">
           <Link

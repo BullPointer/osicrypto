@@ -7,19 +7,20 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createSupportApi } from "../../handleApi/supportApi";
 import MessagePopup from "../utils/MessagePopup";
+import ReactQuill from "react-quill";
 
 const CreateSupport = () => {
   const navigate = useNavigate();
   const [imgName, setImgName] = useState("");
   const [err, setErr] = useState({});
   const [showPopup, setShowPopup] = useState(false);
+  const [editorValue, setEditorValue] = useState("");
 
   const [data, setData] = useState({
     category: "General Inquiry",
     priority: "LOW",
     subject: "",
     file: "",
-    message: "",
   });
 
   const schema = Joi.object({
@@ -27,7 +28,6 @@ const CreateSupport = () => {
     priority: Joi.string(),
     subject: Joi.string(),
     file: Joi.any().allow("").optional(),
-    message: Joi.string().min(5),
   });
 
   const handleChange = ({ target }) => {
@@ -53,13 +53,15 @@ const CreateSupport = () => {
     } else {
       setErr({});
       try {
-        await createSupportApi(data);
+        await createSupportApi({ ...data, message: editorValue });
         setShowPopup(true);
         setTimeout(() => {
           setShowPopup(false);
           navigate("/support", { replace: true });
         }, 2000);
       } catch (error) {
+        console.log({ ...data, message: editorValue });
+        console.log(error);
         console.log("New Error is ", error.response);
       }
     }
@@ -164,8 +166,15 @@ const CreateSupport = () => {
             <div className="w-[100%] md:w-[70%] flex flex-col justify-start items-start p-2">
               <div className="w-full font-bold text-[12px] text-[#302d2d]">
                 Message <span className="text-red-500">*</span>
-              </div>
-              <textarea
+              </div>{" "}
+              <ReactQuill
+                className="w-full min-h-[180px] text-[12px] text-[#3b3939] font-normal rounded-md outline-none focus:border border-[#515979] bg-[#ececf0]"
+                theme="snow"
+                value={editorValue}
+                placeholder="Enter your reply message here..."
+                onChange={setEditorValue}
+              />
+              {/* <textarea
                 onChange={handleChange}
                 className="w-full h-28 p-2 text-[12px] text-[#3b3939] font-normal rounded-md outline-none focus:border border-[#515979] bg-[#ececf0]"
                 type="text"
@@ -174,7 +183,7 @@ const CreateSupport = () => {
               />
               {err.message && (
                 <div className="text-red-500 text-[9px]">{err.message}</div>
-              )}
+              )} */}
             </div>
             <div className="w-[100%] md:w-[70%] flex flex-row justify-end items-end gap-2 p-2">
               <Link
