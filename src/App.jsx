@@ -38,6 +38,7 @@ const App = () => {
       <RequireAuth />
       <Routes>
         <Route path="*" element={<NotFound />} />
+        <Route path="not-found" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-and-conditions" element={<TermsAndConditions />} />
