@@ -1,10 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import GoogleLogin from "react-google-login";
 import Img from "../assets/Blog_Img/login_crypto.jpg";
 import Input from "../components/utils/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Joi from "joi";
 import { errorSubmit } from "../components/utils/errorSubmit";
-import { loginApi } from "../handleApi/accountApi";
+import { googleLoginApi, loginApi } from "../handleApi/accountApi";
+import { gapi } from "gapi-script";
 
 const Signin = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -61,6 +63,31 @@ const Signin = () => {
     setError(error);
     setIsLoading(false);
   };
+  useEffect(() => {
+    gapi.load("client:auth2", () => {
+      gapi.client.init({
+        clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        plugin_name: "chat",
+        ux_mode: "popup", // or 'redirect'
+        // scope: "email profile",
+      });
+    });
+  }, []);
+
+  const handleGoogleSuccess = async (success) => {
+    // To get the clientID for, visit https://console.cloud.google.com/
+    try {
+      console.log("Success message for google login is ", success);
+      await googleLoginApi(success.tokenId);
+    } catch (error) {
+      console.log("New Error ", error);
+    }
+  };
+
+  const handleGoogleFailure = async (failure) => {
+    // To get the clientID for, visit https://console.cloud.google.com/
+    console.log("Failure message for google login is ", failure);
+  };
 
   return (
     <div className="relative w-full min-h-screen flex flex-row justify-center items-center">
@@ -76,12 +103,13 @@ const Signin = () => {
           </div>
         </div>
         <div className="flex flex-row justify-center items-center gap-2 w-[80%] mx-auto mb-2">
-          <img
-            className="bg-white p-1 text-white rounded-md cursor-pointer"
-            width="35"
-            height="35"
-            src="https://img.icons8.com/color/48/google-logo.png"
-            alt="google-logo"
+          <GoogleLogin
+            className="cursor-pointer"
+            buttonText="Sign in with Google"
+            clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+            onSuccess={handleGoogleSuccess}
+            onFailure={handleGoogleFailure}
+            cookiePolicy="single_host_origin"
           />
         </div>
         <form onSubmit={handleSubmit} action="" method="post">
