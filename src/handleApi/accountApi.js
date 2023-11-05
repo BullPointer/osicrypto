@@ -1,5 +1,23 @@
 import axios from "axios";
 
+export const googleLoginApi = (token) => {
+  // const link = "https://osicrypto-backend.onrender.com/users/google-login";
+  const link = "http://localhost:3000/users/google-login";
+
+  const data = {
+    token: token,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = axios.post(link, data, config);
+  return response;
+};
+
 export const signupApi = (cred) => {
   const link = "https://osicrypto-backend.onrender.com/users/signup";
   // const link = "http://localhost:3000/users/signup";

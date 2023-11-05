@@ -1,27 +1,29 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import FaQ from "./pages/faq";
-import Blog from "./pages/Blog";
-import HowItWorks from "./pages/HowItWorks";
-import HelpCenter from "./components/Documents/HelpCenter";
-import Support from "./components/Documents/Support";
-import NotFound from "./pages/NoFound";
 import { useEffect } from "react";
-import AddExchangeDetails from "./pages/AddExchangeDetails";
-import MakeExchange from "./components/MakeExchange";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import PrivacyPolicy from "./components/Documents/PrivacyPolicy";
-import TermsAndConditions from "./components/Documents/TermsAndConditions";
-import BlogContainer from "./components/Blogs/BlogContainer";
-import BlogListing from "./components/Blogs/BlogListing";
-import CreateSupport from "./components/Documents/CreateSupport";
-import SeeSupport from "./components/Documents/SeeSupport";
 import { RequireAuth, RequireNotAuthenticated } from "./utils/RequireAuth";
-import VerifiedMail from "./components/Account/VerifiedMail";
-import ForgotPassword from "./components/Account/ForgotPassword";
-import ResetPassword from "./components/Account/ResetPassword";
+import {
+  Home,
+  AddExchangeDetails,
+  Blog,
+  BlogContainer,
+  BlogListing,
+  CreateSupport,
+  FaQ,
+  ForgotPassword,
+  HelpCenter,
+  HowItWorks,
+  MakeExchange,
+  NotFound,
+  PrivacyPolicy,
+  ResetPassword,
+  SeeSupport,
+  Signin,
+  Signup,
+  Support,
+  TermsAndConditions,
+  VerifiedMail,
+} from "./components";
 
 const App = () => {
   const handleScrollTo = () =>
