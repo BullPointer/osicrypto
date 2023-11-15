@@ -47,6 +47,10 @@ const MakeExchange = () => {
     }, 3 * 60 * 1000);
   }, []);
 
+  useEffect(() => {
+    document.title = "Complete Exchange";
+  }, []);
+
   const commonStyle =
     "text-[10px] md:text-[14px] py-1 px-3 text-[#faf9f9] rounded-lg font-[700] my-2 cursor-context-menu";
 
@@ -168,19 +172,21 @@ const MakeExchange = () => {
                 />
                 <div className={`${commonStyle}`}>Exchanging</div>
               </div>
-             {createXData.status === "expired" && <div
-                className={`flex flex-col justify-center items-center ${
-                  createXData.status === "expired"
-                    ? "opacity-100"
-                    : "opacity-20"
-                }`}
-              >
-                <Icon
-                  className="bg-[#7f7fbb]  text-3xl rounded-full "
-                  icon="teenyicons:send-solid"
-                />
-                <div className={`${commonStyle}`}>Expired</div>
-              </div>}
+              {createXData.status === "expired" && (
+                <div
+                  className={`flex flex-col justify-center items-center ${
+                    createXData.status === "expired"
+                      ? "opacity-100"
+                      : "opacity-20"
+                  }`}
+                >
+                  <Icon
+                    className="bg-[#7f7fbb]  text-3xl rounded-full "
+                    icon="teenyicons:send-solid"
+                  />
+                  <div className={`${commonStyle}`}>Expired</div>
+                </div>
+              )}
             </div>
           </div>
           <div className="rounded-md bg-[#000] p-2">

@@ -31,6 +31,7 @@ const PrivacyPolicy = () => {
   }, []);
 
   useEffect(() => {
+    document.title = "Privacy Policy | Osicrypto";
     const getData = async () => {
       try {
         const { data } = await getPrivacyPolicy();

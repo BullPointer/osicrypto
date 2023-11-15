@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import Navbar from "../../navbar/Navbar";
 import Footer from "../../footer/footer";
 import Select from "../utils/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createSupportApi } from "../../handleApi/supportApi";
 import MessagePopup from "../utils/MessagePopup";
@@ -66,6 +66,10 @@ const CreateSupport = () => {
       }
     }
   };
+
+  useEffect(() => {
+    document.title = "Create Support";
+  }, []);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Img from "../../assets/Blog_Img/login_crypto.jpg";
 import Input from "../../components/utils/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Joi from "joi";
 import { errorSubmit } from "../../components/utils/errorSubmit";
 import { requestResetPasswordApi } from "../../handleApi/accountApi";
@@ -50,6 +50,10 @@ const ForgotPassword = () => {
     setError(error);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    document.title = "Forgot Password";
+  }, []);
 
   return (
     <div className="relative w-full min-h-screen flex flex-row justify-center items-center">

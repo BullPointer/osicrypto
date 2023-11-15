@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Footer from "../../footer/footer";
 import Navbar from "../../navbar/Navbar";
 
 const HelpCenter = () => {
+  useEffect(() => {
+    document.title = "Help Center";
+  }, []);
+
   return (
     <>
       <Navbar />

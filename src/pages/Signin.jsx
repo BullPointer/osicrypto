@@ -64,6 +64,7 @@ const Signin = () => {
     setIsLoading(false);
   };
   useEffect(() => {
+    document.title = "Sign In";
     gapi.load("client:auth2", () => {
       gapi.client.init({
         clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,

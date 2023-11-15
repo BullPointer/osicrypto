@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
 
 const NotFound = () => {
+  useEffect(() => {
+    document.title = "404 Not Found";
+  }, []);
+
   return (
     <>
       <Navbar />

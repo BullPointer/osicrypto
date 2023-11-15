@@ -6,8 +6,13 @@ import StartTutorial from "../components/startTutorial";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
 import Slogan from "../components/Documents/Slogan";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Osicrypto | Cryptocurrency";
+  }, []);
+
   return (
     <>
       <Navbar />
