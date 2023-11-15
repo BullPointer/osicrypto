@@ -31,6 +31,7 @@ const TermsAndConditions = () => {
   }, []);
 
   useEffect(() => {
+    document.title = "Terms And Conditions | Osicrypto";
     const getData = async () => {
       try {
         const { data } = await getTermAndCondition();

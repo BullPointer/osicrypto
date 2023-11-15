@@ -6,6 +6,7 @@ import { verifyEmailApi } from "../../handleApi/accountApi";
 const VerifiedMail = () => {
   const [searchParams] = useSearchParams();
   useEffect(() => {
+    document.title = "Email Verification";
     const handleEmailVerification = async () => {
       try {
         const userId = searchParams.get("usr");

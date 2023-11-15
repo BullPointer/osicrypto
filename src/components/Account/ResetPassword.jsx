@@ -19,6 +19,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Reset Password";
     const handleEmailVerification = async () => {
       try {
         const userId = searchParams.get("usr");

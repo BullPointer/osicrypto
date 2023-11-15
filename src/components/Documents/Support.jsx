@@ -17,6 +17,7 @@ const Support = () => {
   const [confirm, setConfirm] = useState({ id: null, confirm: false });
 
   useEffect(() => {
+    document.title = "Support Request";
     const getSupports = async () => {
       try {
         const { data } = await getSupportsApi();

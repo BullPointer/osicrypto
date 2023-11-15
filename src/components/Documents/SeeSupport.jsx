@@ -52,6 +52,7 @@ const SeeSupport = () => {
   };
 
   useEffect(() => {
+    document.title = "See Support Request";
     const getChats = async () => {
       try {
         const { data } = await getSupportByIdApi(id);

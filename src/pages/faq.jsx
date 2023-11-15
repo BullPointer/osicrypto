@@ -12,6 +12,7 @@ function FaQ() {
   const [clickedIndex, setClickedIndex] = useState(null);
 
   useEffect(() => {
+    document.title = "FAQs";
     getFaqsObject(setFaq);
   }, []);
 

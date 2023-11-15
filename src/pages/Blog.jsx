@@ -17,6 +17,7 @@ const Blog = () => {
       behavior: "smooth",
     });
   useEffect(() => {
+    document.title = "Blog";
     addEventListener("load", handleScrollTo);
     return () => removeEventListener("load", handleScrollTo);
   }, []);

@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import Transaction from "../components/Transaction";
 import { useExchangeContext } from "../context/ExchangeContext";
 import { createExchange } from "../handleApi/currencyApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/Navbar";
@@ -89,6 +89,10 @@ const AddExchangeDetails = () => {
       console.log("error ", error.response.status, error.response);
     }
   };
+
+  useEffect(() => {
+    document.title = "Exchange Details";
+  }, []);
 
   const commonStyle = "flex flex-row justify-center items-center";
   const exchangeStyle =
