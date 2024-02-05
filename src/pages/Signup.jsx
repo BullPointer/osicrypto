@@ -71,12 +71,17 @@ const Signup = () => {
         localStorage.setItem("token", JSON.stringify(dataToStore));
         setIsLoading(false);
         navigate(redirectPath, { replace: true });
-      } catch (error) {
+      } catch (err) {
+        const errMsg = err.response;
         setIsLoading(false);
-        console.log(error);
+        if (err) {
+          setError({ email: errMsg.data.message });
+          return setIsLoading(false);
+        }
+        console.log(err);
+        return setIsLoading(false);
       }
     }
-
     setError(error);
     setIsLoading(false);
   };
@@ -107,6 +112,7 @@ const Signup = () => {
     // To get the clientID for, visit https://console.cloud.google.com/
     console.log("Failure message for google login is ", failure);
   };
+  console.log("my error is ", error);
 
   return (
     <div className="relative w-full h-auto flex flex-row justify-center items-center">

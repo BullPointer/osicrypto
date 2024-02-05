@@ -56,10 +56,11 @@ const Signin = () => {
         setIsLoading(false);
         navigate(redirectPath, { replace: true });
       } catch (error) {
-        console.log(error);
+        console.log("Serious Auth error is ", error);
         setIsLoading(false);
       }
     }
+    console.log("Don't know why there's Serious error is ", error);
     setError(error);
     setIsLoading(false);
   };
