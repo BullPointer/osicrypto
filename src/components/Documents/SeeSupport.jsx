@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import parser from "html-react-parser";
 import { Link, useParams } from "react-router-dom";
 import { getSupportByIdApi } from "../../handleApi/supportApi";
 import ReplySeeSupport from "./ReplySeeSupport";
 import Joi from "joi";
 import { createChatApi } from "../../handleApi/chatApi";
+import { io } from "socket.io-client";
+import moment from "moment";
 
 const SeeSupport = () => {
   const [imgName, setImgName] = useState("");
   const [err, setErr] = useState({});
   const [editorValue, setEditorValue] = useState("");
   const [reply, setReply] = useState({ file: "" });
-  const [chats, setChats] = useState([]);
-  const [sendMsg, setSendMsg] = useState("");
+  const [chats, setChats] = useState({});
+  const [sentNewMsg, setSentNewMsg] = useState("");
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState(null);
   const { id } = useParams("");
+  const scroll = useRef();
 
   const schema = Joi.object({
     file: Joi.any().allow("").optional(),
@@ -44,7 +49,7 @@ const SeeSupport = () => {
       setErr({});
       try {
         await createChatApi({ ...reply, response: editorValue }, chats._id);
-        setSendMsg(reply.response);
+        setSentNewMsg(editorValue);
       } catch (error) {
         console.log("New Error: ", error.response);
       }
@@ -52,18 +57,70 @@ const SeeSupport = () => {
   };
 
   useEffect(() => {
+    const element = scroll.current;
+    element?.scrollIntoView({ behavior: "smooth" });
+  }, [sentNewMsg, scroll]);
+
+  useEffect(() => {
     document.title = "See Support Request";
     const getChats = async () => {
       try {
         const { data } = await getSupportByIdApi(id);
-        console.log(data.data);
+
         setChats(data.data);
       } catch (error) {
         console.log("New Error is ", error.response);
       }
     };
     getChats();
-  }, [sendMsg]);
+    // }, [sentNewMsg]);
+  }, []);
+
+  // Connect to socket.io
+  useEffect(() => {
+    const newSocket = io.connect("http://localhost:5050");
+    setSocket(newSocket);
+
+    return () => newSocket.disconnect();
+  }, []);
+
+  // add user to socket.io
+  useEffect(() => {
+    if (socket === null) return;
+
+    socket.emit("addNewUser", chats._id);
+    socket.on("getOnlineUsers", (res) => setOnlineUsers(res));
+
+    return () => socket.off("getOnlineUsers");
+  }, [socket, chats]);
+
+  // send message to the admin
+  useEffect(() => {
+    if (socket === null) return;
+
+    const newChats = {
+      ...reply,
+      msg: editorValue,
+      createdAt: new Date().toUTCString(),
+      fromAdmin: false,
+      receiverId: `${chats?._id + chats?.email}`,
+    };
+
+    setChats((prev) => ({ ...prev, messages: [...prev.messages, newChats] }));
+
+    socket.emit("sendMessage", newChats);
+  }, [sentNewMsg]);
+
+  // recieve message from admin
+  useEffect(() => {
+    if (socket === null) return;
+
+    socket.on("getMessage", (res) => {
+      setChats((prev) => ({ ...prev, messages: [...prev.messages, res] }));
+    });
+
+    return () => socket.off("getMessage");
+  }, [socket]);
 
   return (
     <div className="min-h-screen px-4 py-10 md:p-10">
@@ -111,6 +168,7 @@ const SeeSupport = () => {
         <div className="h-screen overflow-auto flex flex-col justify-start items-start py-4 bg-[#f5f4f4]">
           {chats?.messages?.map(({ fromAdmin, msg, createdAt }, index) => (
             <div
+              ref={scroll}
               key={index}
               className={`flex flex-col justify-center items-start gap-4 w-[85%] sm:w-[70%] ${
                 fromAdmin ? "self-start bg-[#fff;]" : "self-end bg-[#f0ecec]"
@@ -123,7 +181,7 @@ const SeeSupport = () => {
                     icon="fluent-mdl2:date-time-12"
                   />
                   <div className="text-[9px] xs:text-[10px] sm:text-[12px] font-semibold">
-                    {createdAt}
+                    {moment(createdAt).calendar()}
                   </div>
                 </div>
                 <div className="text-[9px] xs:text-[10px] sm:text-[12px] font-bold text-[#191942]">

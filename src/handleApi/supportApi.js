@@ -8,16 +8,17 @@ export const getSupportsApi = async () => {
       Authorization: `Bearer ${useToken()}`,
     },
   };
-  const response = await axios.get(
-    "https://osicrypto-backend.onrender.com/api/supports",
-    config
-  );
   // const response = await axios.get(
-  //   "http://localhost:3000/api/supports",
+  //   "https://osicrypto-backend.onrender.com/api/supports",
   //   config
   // );
+  const response = await axios.get(
+    "http://localhost:3000/api/supports",
+    config
+  );
   return response;
 };
+
 export const getSupportByIdApi = async (id) => {
   const config = {
     headers: {
@@ -25,23 +26,21 @@ export const getSupportByIdApi = async (id) => {
       Authorization: `Bearer ${useToken()}`,
     },
   };
-  const response = await axios.get(
-    `https://osicrypto-backend.onrender.com/api/supports/${id}`,
-    config
-  );
   // const response = await axios.get(
-  //   `http://localhost:3000/api/supports/${id}`,
+  //   `https://osicrypto-backend.onrender.com/api/supports/${id}`,
   //   config
   // );
+  const response = await axios.get(
+    `http://localhost:3000/api/supports/${id}`,
+    config
+  );
   return response;
 };
 const storedData = localStorage.getItem("token");
 
 const useToken = () => {
-  if (storedData) {
-    const token = JSON.parse(storedData).data;
-    return token;
-  }
+  if (storedData) return JSON.parse(storedData).data;
+
   return "";
 };
 
@@ -60,16 +59,16 @@ export const createSupportApi = async (cred) => {
     },
   };
 
-  const response = await axios.post(
-    "https://osicrypto-backend.onrender.com/api/supports",
-    formData,
-    config
-  );
   // const response = await axios.post(
-  //   "http://localhost:3000/api/supports",
+  //   "https://osicrypto-backend.onrender.com/api/supports",
   //   formData,
   //   config
   // );
+  const response = await axios.post(
+    "http://localhost:3000/api/supports",
+    formData,
+    config
+  );
 
   return response;
 };
@@ -77,18 +76,18 @@ export const createSupportApi = async (cred) => {
 export const deleteSupportByIdApi = async (id) => {
   const config = {
     headers: {
-      // Authorization: `Bearer ${useToken()}`,
+      Authorization: `Bearer ${useToken()}`,
       "Content-Type": "multipart/form-data", // Important for sending files
     },
   };
 
-  const response = await axios.delete(
-    `https://osicrypto-backend.onrender.com/api/supports/${id}`,
-    config
-  );
   // const response = await axios.delete(
-  //   `http://localhost:3000/api/supports/${id}`,
+  //   `https://osicrypto-backend.onrender.com/api/supports/${id}`,
   //   config
   // );
+  const response = await axios.delete(
+    `http://localhost:3000/api/supports/${id}`,
+    config
+  );
   return response;
 };
